@@ -11,5 +11,6 @@ package bdd;
  */
 public class Intzerface 
 {
-    private String ducon;
+    private String salepute;
+    private Pute loic;
 }
