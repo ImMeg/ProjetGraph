@@ -11,5 +11,5 @@ package bdd;
  */
 public class Intzerface 
 {
-    
+    private String ducon;
 }
