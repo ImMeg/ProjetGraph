@@ -13,5 +13,4 @@ public class Intzerface
 {
     private String salepute;
     private TarlPute Thomas;
-    private gentilProf Imen;
 }
