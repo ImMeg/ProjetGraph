@@ -12,7 +12,5 @@ package bdd;
 public class Intzerface 
 {
     private String salepute;
-    
-    
-    
+ 
 }
