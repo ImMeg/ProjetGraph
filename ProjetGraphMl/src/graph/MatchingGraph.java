@@ -147,11 +147,14 @@ public class MatchingGraph extends JApplet {
             graph.addEdge("edge5", "COUNTRY", "Chine");
             graph.addEdge("edge6", "COUNTRY", "France");
             
+            
         collapsedGraph = graph;
         collapser = new GraphCollapser(graph);
 
-        Dimension preferredSize = new Dimension(400, 400);
-        layout = new StaticLayout(graph,preferredSize);
+        Dimension preferredSize = new Dimension(500, 500);
+        //layout = new StaticLayout(graph,preferredSize);
+        layout = new CircleLayout(graph);
+        layout.setSize(preferredSize);
         //layout.setGraph(graph);
         final VisualizationModel visualizationModel
                 = new DefaultVisualizationModel(layout, preferredSize);
@@ -199,18 +202,18 @@ public class MatchingGraph extends JApplet {
          * the regular graph mouse for the normal view
          */
         //final DefaultModalGraphMouse graphMouse = new DefaultModalGraphMouse();
-        final EditingModalGraphMouse<String, String> graphMouse
-                = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
-
-        vv.setGraphMouse(graphMouse);
+//        final EditingModalGraphMouse<String, String> graphMouse
+//                = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
+//
+//        vv.setGraphMouse(graphMouse);
 
         final Container content = getContentPane();
         GraphZoomScrollPane gzsp = new GraphZoomScrollPane(vv);
         content.add(gzsp);
 
-        JComboBox modeBox = graphMouse.getModeComboBox();
-        modeBox.addItemListener(graphMouse.getModeListener());
-        graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
+//        JComboBox modeBox = graphMouse.getModeComboBox();
+//        modeBox.addItemListener(graphMouse.getModeListener());
+//        graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
 
         final JFileChooser jFileChooserOpen = new JFileChooser();
         jFileChooserOpen.setControlButtonsAreShown(true);
