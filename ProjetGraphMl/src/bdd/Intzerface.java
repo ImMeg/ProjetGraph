@@ -13,4 +13,5 @@ public class Intzerface
 {
     private String salepute;
     private Pute alex;
+    private GentilleCliente imen;
 }
