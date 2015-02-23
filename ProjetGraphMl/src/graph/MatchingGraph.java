@@ -147,11 +147,14 @@ public class MatchingGraph extends JApplet {
             graph.addEdge("edge5", "COUNTRY", "Chine");
             graph.addEdge("edge6", "COUNTRY", "France");
             
+            
         collapsedGraph = graph;
         collapser = new GraphCollapser(graph);
 
-        Dimension preferredSize = new Dimension(400, 400);
-        layout = new StaticLayout(graph,preferredSize);
+        Dimension preferredSize = new Dimension(500, 500);
+        //layout = new StaticLayout(graph,preferredSize);
+        layout = new CircleLayout(graph);
+        layout.setSize(preferredSize);
         //layout.setGraph(graph);
         final VisualizationModel visualizationModel
                 = new DefaultVisualizationModel(layout, preferredSize);
