@@ -202,18 +202,18 @@ public class MatchingGraph extends JApplet {
          * the regular graph mouse for the normal view
          */
         //final DefaultModalGraphMouse graphMouse = new DefaultModalGraphMouse();
-        final EditingModalGraphMouse<String, String> graphMouse
-                = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
-
-        vv.setGraphMouse(graphMouse);
+//        final EditingModalGraphMouse<String, String> graphMouse
+//                = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
+//
+//        vv.setGraphMouse(graphMouse);
 
         final Container content = getContentPane();
         GraphZoomScrollPane gzsp = new GraphZoomScrollPane(vv);
         content.add(gzsp);
 
-        JComboBox modeBox = graphMouse.getModeComboBox();
-        modeBox.addItemListener(graphMouse.getModeListener());
-        graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
+//        JComboBox modeBox = graphMouse.getModeComboBox();
+//        modeBox.addItemListener(graphMouse.getModeListener());
+//        graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
 
         final JFileChooser jFileChooserOpen = new JFileChooser();
         jFileChooserOpen.setControlButtonsAreShown(true);

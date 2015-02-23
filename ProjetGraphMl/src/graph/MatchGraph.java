@@ -39,7 +39,7 @@ import org.apache.commons.collections15.map.LazyMap;
  *
  * @author loicleger
  */
-public class MatchGraph extends JApplet{
+public class MatchGraph extends JApplet {
         private static DirectedGraph<String, String> graph = new DirectedSparseMultigraph<String, String>();
 
      VisualizationViewer vv;
@@ -50,6 +50,7 @@ public class MatchGraph extends JApplet{
 
     Factory<String> vertexFactory = new MatchGraph.VertexFactory();
     Factory<String> edgeFactory = new MatchGraph.EdgeFactory();
+    
     
     public MatchGraph() {
         // create a simple graph for the demo
@@ -118,10 +119,10 @@ public class MatchGraph extends JApplet{
             }
         });
         
-        final EditingModalGraphMouse<String, String> graphMouse
-                = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
-
-        vv.setGraphMouse(graphMouse);
+//        final EditingModalGraphMouse<String, String> graphMouse
+//                = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
+//
+//        vv.setGraphMouse(graphMouse);
 
         final Container content = getContentPane();
         GraphZoomScrollPane gzsp = new GraphZoomScrollPane(vv);
