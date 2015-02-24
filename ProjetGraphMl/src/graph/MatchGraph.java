@@ -58,7 +58,7 @@ import org.apache.commons.collections15.map.LazyMap;
 public class MatchGraph extends JApplet {
         private static DirectedGraph<String, String> graph = new DirectedSparseMultigraph<String, String>();
 
-     VisualizationViewer vv;
+    VisualizationViewer vv;
 
     Layout layout;
 
@@ -69,7 +69,7 @@ public class MatchGraph extends JApplet {
     PickedState<String> pickedState ;
     ArrayList<String> selectedobjects = new ArrayList<>();
     
-    
+    final EditingModalGraphMouse<String, String> graphMouse;
     public MatchGraph() {
             graph.addVertex("YEAR");
             graph.addVertex("2010");
@@ -267,6 +267,22 @@ public class MatchGraph extends JApplet {
             }
             return size;
         }
+    }
+    
+    public String searchVertexInTable( Object[] tableOfVertex) {
+        Object[] tabVertex = graph.getVertices().toArray();
+        
+        
+        for ( int i = 0 ; i < tableOfVertex.length ; i++ )
+        for (Object s : tabVertex) {
+            if (s.equals(tableOfVertex[i])) {
+                return s.toString();
+            }
+
+        }
+        System.out.println("Vertex non trouvé");
+        return null;
+        
     }
 
 }
