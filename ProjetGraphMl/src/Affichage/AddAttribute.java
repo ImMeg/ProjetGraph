@@ -5,11 +5,12 @@
  */
 package Affichage;
 
-import graph.Graph;
+import graph.MatchGraph;
 import java.awt.GridLayout;
 import java.awt.ItemSelectable;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -20,6 +21,9 @@ public class AddAttribute extends javax.swing.JPanel {
     /**
      * Creates new form AddAttribute
      */
+    
+    
+    
     public AddAttribute() {
         initComponents();
     }
@@ -121,6 +125,11 @@ public class AddAttribute extends javax.swing.JPanel {
         }*/
         //jPanel1.add(new JCheckBox(Graph.getSelectedObjects()));
         //jPanel1.add(new JCheckBox(s));
+        for ( String s : MatchGraph.selectedobjects){
+            jPanel1.add(new JCheckBox(s));
+        }
+        MatchGraph.selectedobjects.clear();
+        
         jPanel1.revalidate();
     }
     

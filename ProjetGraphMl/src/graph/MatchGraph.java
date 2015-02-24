@@ -67,7 +67,7 @@ public class MatchGraph extends JApplet {
     Factory<String> vertexFactory = new MatchGraph.VertexFactory();
     Factory<String> edgeFactory = new MatchGraph.EdgeFactory();
     PickedState<String> pickedState ;
-    ArrayList<String> selectedobjects = new ArrayList<>();
+    public static ArrayList<String> selectedobjects = new ArrayList<>();
     
     public MatchGraph() {
             graph.addVertex("YEAR");
@@ -164,7 +164,7 @@ public class MatchGraph extends JApplet {
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     System.out.println(selectedobjects.toString());
-                    selectedobjects.clear();
+                    
                 }
 
                 @Override

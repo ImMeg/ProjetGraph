@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graph;
+package Affichage;
 
 import Affichage.AddAttribute;
 import Affichage.AddDimension;
+import graph.MatchGraph;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
 
