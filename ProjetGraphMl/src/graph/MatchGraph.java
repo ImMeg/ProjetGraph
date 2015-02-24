@@ -15,25 +15,36 @@ import edu.uci.ics.jung.visualization.VisualizationModel;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.VisualizationViewer.GraphMouse;
 import edu.uci.ics.jung.visualization.control.EditingModalGraphMouse;
+import edu.uci.ics.jung.visualization.control.GraphMouseListener;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
+import edu.uci.ics.jung.visualization.control.PickingGraphMousePlugin;
 import edu.uci.ics.jung.visualization.decorators.EllipseVertexShapeTransformer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
+import edu.uci.ics.jung.visualization.picking.PickedState;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
 import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
 import edu.uci.ics.jung.visualization.util.PredicatedParallelEdgeIndexFunction;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Event;
+import java.awt.List;
 import java.awt.Paint;
 import java.awt.Shape;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JApplet;
 import javax.swing.JComboBox;
+import javax.swing.event.MenuDragMouseEvent;
 import org.apache.commons.collections15.Factory;
 import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
@@ -55,12 +66,11 @@ public class MatchGraph extends JApplet {
 
     Factory<String> vertexFactory = new MatchGraph.VertexFactory();
     Factory<String> edgeFactory = new MatchGraph.EdgeFactory();
+    PickedState<String> pickedState ;
+    ArrayList<String> selectedobjects = new ArrayList<>();
     
     
     public MatchGraph() {
-        // create a simple graph for the demo
-        // graph = TestGraphs.getOneComponentGraph();
-        //DirectedGraph<String, String> graphOfFile = new DirectedSparseMultigraph<String, String>();
             graph.addVertex("YEAR");
             graph.addVertex("2010");
             graph.addVertex("2011");
@@ -118,59 +128,55 @@ public class MatchGraph extends JApplet {
             @Override
             public String transform(Object v) {
                 if (v instanceof edu.uci.ics.jung.graph.Graph) {
+                    System.out.println("ICI"+v.toString());
                     return ((edu.uci.ics.jung.graph.Graph) v).getVertices().toString();
                 }
+                System.out.println(v.toString());
                 return super.transform(v);
             }
         });
         
         final EditingModalGraphMouse<String, String> graphMouse
                 = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
-//
-//        GraphMouse graphMouse = new GraphMouse() {
-//
-//                @Override
-//                public void mouseClicked(MouseEvent e) {
-//                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//                }
-//
-//                @Override
-//                public void mousePressed(MouseEvent e) {
-//                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//                }
-//
-//                @Override
-//                public void mouseReleased(MouseEvent e) {
-//                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//                }
-//
-//                @Override
-//                public void mouseEntered(MouseEvent e) {
-//                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//                }
-//
-//                @Override
-//                public void mouseExited(MouseEvent e) {
-//                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//                }
-//
-//                @Override
-//                public void mouseDragged(MouseEvent e) {
-//                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//                }
-//
-//                @Override
-//                public void mouseMoved(MouseEvent e) {
-//                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//                }
-//
-//                @Override
-//                public void mouseWheelMoved(MouseWheelEvent e) {
-//                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//                }
-//            };
-        vv.setGraphMouse(graphMouse);
 
+        vv.setGraphMouse(graphMouse);
+        
+        pickedState = vv.getPickedVertexState();
+        pickedState.addItemListener(new ItemListener() {
+
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    String selected = (String) e.getItem();
+                    if(pickedState.isPicked(selected))
+                        selectedobjects.add(selected);
+                }
+            });
+        
+        vv.addMouseListener(new MouseListener() {
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    System.out.println(selectedobjects.toString());
+                    selectedobjects.clear();
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                }
+            });
+        
         final Container content = getContentPane();
         GraphZoomScrollPane gzsp = new GraphZoomScrollPane(vv);
         content.add(gzsp);
@@ -178,6 +184,10 @@ public class MatchGraph extends JApplet {
         JComboBox modeBox = graphMouse.getModeComboBox();
         modeBox.addItemListener(graphMouse.getModeListener());
         graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
+        
+        
+        
+        
     }
     
      
@@ -202,29 +212,29 @@ public class MatchGraph extends JApplet {
         }
     }
     
-        class ClusterVertexShapeFunction<V> extends EllipseVertexShapeTransformer<V> {
+    class ClusterVertexShapeFunction<V> extends EllipseVertexShapeTransformer<V> {
 
-        ClusterVertexShapeFunction() {
-            setSizeTransformer(new ClusterVertexSizeFunction<V>(20));
-        }
+    ClusterVertexShapeFunction() {
+        setSizeTransformer(new ClusterVertexSizeFunction<V>(20));
+    }
 
-        @Override
-        public Shape transform(V v) {
-            if (v instanceof ComplexVertex) {
-                Ellipse2D circle = new Ellipse2D.Double(-10, -10, 20, 20);
-                return circle;
-            }
-            if (v instanceof edu.uci.ics.jung.graph.Graph) {
-                int size = ((edu.uci.ics.jung.graph.Graph) v).getVertexCount();
-                if (size < 8) {
-                    int sides = Math.max(size, 3);
-                    return factory.getRegularPolygon(v, sides);
-                } else {
-                    return factory.getRegularStar(v, size);
-                }
-            }
-            return super.transform(v);
+    @Override
+    public Shape transform(V v) {
+        if (v instanceof ComplexVertex) {
+            Ellipse2D circle = new Ellipse2D.Double(-10, -10, 20, 20);
+            return circle;
         }
+        if (v instanceof edu.uci.ics.jung.graph.Graph) {
+            int size = ((edu.uci.ics.jung.graph.Graph) v).getVertexCount();
+            if (size < 8) {
+                int sides = Math.max(size, 3);
+                return factory.getRegularPolygon(v, sides);
+            } else {
+                return factory.getRegularStar(v, size);
+            }
+        }
+        return super.transform(v);
+    }
     }
 
     class ClusterVertexColorFunction<V> implements Transformer<V, Paint> {
