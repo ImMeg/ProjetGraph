@@ -47,7 +47,7 @@ import org.apache.commons.collections15.map.LazyMap;
 public class MatchGraph extends JApplet {
         private static DirectedGraph<String, String> graph = new DirectedSparseMultigraph<String, String>();
 
-     VisualizationViewer vv;
+    VisualizationViewer vv;
 
     Layout layout;
 
@@ -56,7 +56,7 @@ public class MatchGraph extends JApplet {
     Factory<String> vertexFactory = new MatchGraph.VertexFactory();
     Factory<String> edgeFactory = new MatchGraph.EdgeFactory();
     
-    
+    final EditingModalGraphMouse<String, String> graphMouse;
     public MatchGraph() {
         // create a simple graph for the demo
         // graph = TestGraphs.getOneComponentGraph();
@@ -124,8 +124,7 @@ public class MatchGraph extends JApplet {
             }
         });
         
-        final EditingModalGraphMouse<String, String> graphMouse
-                = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
+         graphMouse = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
 //
 //        GraphMouse graphMouse = new GraphMouse() {
 //
@@ -178,6 +177,8 @@ public class MatchGraph extends JApplet {
         JComboBox modeBox = graphMouse.getModeComboBox();
         modeBox.addItemListener(graphMouse.getModeListener());
         graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
+        
+        graphMouse.getSelectedObjects();
     }
     
      
@@ -257,6 +258,22 @@ public class MatchGraph extends JApplet {
             }
             return size;
         }
+    }
+    
+    public String searchVertexInTable( Object[] tableOfVertex) {
+        Object[] tabVertex = graph.getVertices().toArray();
+        
+        
+        for ( int i = 0 ; i < tableOfVertex.length ; i++ )
+        for (Object s : tabVertex) {
+            if (s.equals(tableOfVertex[i])) {
+                return s.toString();
+            }
+
+        }
+        System.out.println("Vertex non trouvé");
+        return null;
+        
     }
 
 }
