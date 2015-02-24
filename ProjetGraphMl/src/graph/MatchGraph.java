@@ -127,13 +127,12 @@ public class MatchGraph extends JApplet {
             @Override
             public String transform(Object v) {
                 if (v instanceof edu.uci.ics.jung.graph.Graph) {
-                    System.out.println("ICI"+v.toString());
                     return ((edu.uci.ics.jung.graph.Graph) v).getVertices().toString();
                 }
-                System.out.println(v.toString());
                 return super.transform(v);
             }
         });
+        
         
         final EditingModalGraphMouse<String, String> graphMouse
                 = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
@@ -163,7 +162,8 @@ public class MatchGraph extends JApplet {
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    System.out.println(selectedobjects.toString());
+                    matcherGraph(selectedobjects, "lalila");
+                    vv.repaint();
                     
                 }
 
@@ -186,7 +186,26 @@ public class MatchGraph extends JApplet {
         
     }
     
-     
+    public void matcherGraph(ArrayList<String> selected,String title) {
+       graph.addVertex(title);
+       for(String s : selected ) {
+           //Gestion des predecesseur
+           for (String pred : graph.getPredecessors(s)) {
+               if(!selected.contains(pred))                
+                    graph.addEdge(pred+"->"+title, pred, title);
+                graph.removeEdge(graph.findEdge(pred, s));
+               }
+           
+            //Gestion des successeurs
+           for (String succ : graph.getSuccessors(s)) {
+               if(!selected.contains(succ))                
+                    graph.addEdge(title+"->"+succ, title, succ);
+                graph.removeEdge(graph.findEdge(s, succ));
+               }
+           graph.removeVertex(s);
+       }
+    } 
+    
      class VertexFactory implements Factory<String> {
 
         int i = 0;
