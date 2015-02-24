@@ -69,7 +69,6 @@ public class MatchGraph extends JApplet {
     PickedState<String> pickedState ;
     ArrayList<String> selectedobjects = new ArrayList<>();
     
-    final EditingModalGraphMouse<String, String> graphMouse;
     public MatchGraph() {
             graph.addVertex("YEAR");
             graph.addVertex("2010");
@@ -184,9 +183,6 @@ public class MatchGraph extends JApplet {
         JComboBox modeBox = graphMouse.getModeComboBox();
         modeBox.addItemListener(graphMouse.getModeListener());
         graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
-        
-        
-        
         
     }
     

@@ -36,7 +36,7 @@ public class Graph extends javax.swing.JFrame {
     {
         return mg.graphMouse.getSelectedObjects();
     }*/
-    static public String getSelectedObjects()
+    /*static public String getSelectedObjects()
     {
         for ( Object s : mg.graphMouse.getSelectedObjects())
             System.out.println(s);

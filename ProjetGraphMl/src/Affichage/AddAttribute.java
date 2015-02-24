@@ -119,7 +119,7 @@ public class AddAttribute extends javax.swing.JPanel {
             //System.out.println((ItemSelectable)o);
             jPanel1.add(new JCheckBox(o.toString()));
         }*/
-        jPanel1.add(new JCheckBox(Graph.getSelectedObjects()));
+        //jPanel1.add(new JCheckBox(Graph.getSelectedObjects()));
         //jPanel1.add(new JCheckBox(s));
         jPanel1.revalidate();
     }
