@@ -19,11 +19,11 @@ public class Graph extends javax.swing.JFrame {
     static public MatchGraph mg;
     
     public Graph() {
-        this.initComponents();
         mg = new MatchGraph();
+        this.initComponents();
         jInternalFrame1.setContentPane(mg);
         jInternalFrame1.setVisible(true);
-        jPanel2.add(new AddSeveralAttribute(mg));
+        jPanel2.add(new AddDimension(mg));
         
     }
     
@@ -122,4 +122,8 @@ public class Graph extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
+
+    public void showAddSeveralAttribute() {
+        jPanel2.add(new AddSeveralAttribute(mg));
+    }
 }

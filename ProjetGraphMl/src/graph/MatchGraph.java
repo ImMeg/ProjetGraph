@@ -155,8 +155,8 @@ public class MatchGraph extends JApplet {
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     //selectedobjects = vv.getPickedVertexState().getPicked();
-                    matcherGraph();
-                    vv.repaint();
+//                    matcherGraph();
+//                    vv.repaint();
                     
                 }
 
@@ -179,9 +179,10 @@ public class MatchGraph extends JApplet {
         
     }
     
-    public  Collection getSelectedVertex()
+    public HashSet<String> getSelectedVertex()
     {
-        return vv.getPickedVertexState().getPicked();
+        HashSet<String> selectedObject = new HashSet(vv.getPickedVertexState().getPicked());
+        return selectedObject;
     }
     
     public void matcherGraph() {
@@ -202,7 +203,7 @@ public class MatchGraph extends JApplet {
 //               }
 //           graph.removeVertex(s);
         
-        Collection picked = getSelectedVertex();
+        Collection picked = new HashSet(vv.getPickedVertexState().getPicked());
 
         GraphCollapser mycollapser = new GraphCollapser(graph);
         Graph inGraph = layout.getGraph();

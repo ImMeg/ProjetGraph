@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.ItemSelectable;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javafx.scene.input.KeyCode;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -29,10 +30,10 @@ public class AddAttribute extends javax.swing.JPanel {
     
     ArrayList<String> listOfElement;
     
-    public AddAttribute() {
+    /*public AddAttribute() {
         initComponents();
         listOfElement = new ArrayList<String>();
-    }
+    }*/
     
     public AddAttribute (ArrayList<String> list)
     {
@@ -135,13 +136,19 @@ public class AddAttribute extends javax.swing.JPanel {
 
     public void addElementToJPanel()
     {
-         for ( String s : (String[])graph.getSelectedVertex().toArray()){
-            if ( !(listOfElement.contains(s)))
+        Iterator<String> objects = graph.getSelectedVertex().iterator();
+      
+        
+        
+         for (String it =""; objects.hasNext() ;  ){
+             it = objects.next();
+             
+            if ( !(listOfElement.contains(it)))
             {
-                JCheckBox check = new JCheckBox(s);
+                JCheckBox check = new JCheckBox(it);
                 check.setSelected(true);
                 jPanel1.add(check);
-                listOfElement.add(s);
+                listOfElement.add(it);
             }
         }
         
