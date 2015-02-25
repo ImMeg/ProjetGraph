@@ -55,6 +55,7 @@ import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.functors.MapTransformer;
 import org.apache.commons.collections15.map.LazyMap;
+import view.MouseListenerPerso;
 
 /**
  *
@@ -142,32 +143,7 @@ public class MatchGraph extends JApplet {
 
         vv.setGraphMouse(graphMouse);
 
-        vv.addMouseListener(new MouseListener() {
-
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-                    //selectedobjects = vv.getPickedVertexState().getPicked();
-//                    matcherGraph();
-//                    vv.repaint();
-                    
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-                }
-            });
+        vv.addMouseListener(new MouseListenerPerso());
         
         final Container content = getContentPane();
         GraphZoomScrollPane gzsp = new GraphZoomScrollPane(vv);
