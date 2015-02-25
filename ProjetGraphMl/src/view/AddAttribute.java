@@ -125,10 +125,10 @@ public class AddAttribute extends javax.swing.JPanel {
         }*/
         //jPanel1.add(new JCheckBox(Graph.getSelectedObjects()));
         //jPanel1.add(new JCheckBox(s));
-        for ( String s : MatchGraph.selectedobjects){
+        /*for ( String s : MatchGraph.selectedobjects){
             jPanel1.add(new JCheckBox(s));
         }
-        MatchGraph.selectedobjects.clear();
+        MatchGraph.selectedobjects.clear();*/
         
         jPanel1.revalidate();
     }

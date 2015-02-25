@@ -1,8 +1,8 @@
-/*
+/*/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
+ **/
 package graph;
 
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
@@ -71,7 +71,6 @@ public class MatchGraph extends JApplet {
 
     Factory<String> vertexFactory = new MatchGraph.VertexFactory();
     Factory<String> edgeFactory = new MatchGraph.EdgeFactory();
-    public static HashSet<String> selectedobjects = new HashSet<>();
     
     public MatchGraph() {
             graph.addVertex("YEAR");
@@ -156,7 +155,7 @@ public class MatchGraph extends JApplet {
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     //selectedobjects = vv.getPickedVertexState().getPicked();
-                    matcherGraph(selectedobjects, "lalila");
+                    matcherGraph();
                     vv.repaint();
                     
                 }
@@ -180,7 +179,7 @@ public class MatchGraph extends JApplet {
         
     }
     
-    public void matcherGraph(ArrayList<String> selected,String title) {
+    public void matcherGraph() {
 //       graph.addVertex(title);
 //       for(String s : selected ) {
 //           //Gestion des predecesseur
@@ -201,9 +200,9 @@ public class MatchGraph extends JApplet {
         Collection picked = new HashSet(vv.getPickedVertexState().getPicked());
 
         GraphCollapser mycollapser = new GraphCollapser(graph);
-        Graph inGraph = (Forest) layout.getGraph();
-        Graph clusterTree = mycollapser.getClusterGraph(inGraph, picked);
-        Graph g = mycollapser.collapse(layout.getGraph(), inGraph);
+        Graph inGraph = layout.getGraph();
+        Graph clusterGraph = mycollapser.getClusterGraph(inGraph, picked);
+        Graph g = mycollapser.collapse(layout.getGraph(), clusterGraph);
 
         double sumx = 0;
         double sumy = 0;
@@ -216,7 +215,7 @@ public class MatchGraph extends JApplet {
         Point2D cp = new Point2D.Double(sumx / picked.size(), sumy / picked.size());
         vv.getRenderContext().getParallelEdgeIndexFunction().reset();
         layout.setGraph(g);
-        layout.setLocation(clusterTree.toString(), cp);
+        layout.setLocation(clusterGraph, cp);
         vv.getPickedVertexState().clear();
         vv.repaint();
                
