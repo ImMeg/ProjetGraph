@@ -25,6 +25,8 @@ public class AddAttribute extends javax.swing.JPanel {
      * Creates new form AddAttribute
      */
     
+    private MatchGraph graph;
+    
     ArrayList<String> listOfElement;
     
     public AddAttribute() {
@@ -36,6 +38,13 @@ public class AddAttribute extends javax.swing.JPanel {
     {
         initComponents();
         listOfElement = list;
+    }
+    
+    public AddAttribute (MatchGraph graph)
+    {
+        initComponents();
+        listOfElement = new ArrayList<String>();
+        this.graph = graph;
     }
 
     /**
@@ -126,7 +135,7 @@ public class AddAttribute extends javax.swing.JPanel {
 
     public void addElementToJPanel()
     {
-       /*  for ( String s : MatchGraph.selectedobjects){
+         for ( String s : (String[])graph.getSelectedVertex().toArray()){
             if ( !(listOfElement.contains(s)))
             {
                 JCheckBox check = new JCheckBox(s);
@@ -137,9 +146,9 @@ public class AddAttribute extends javax.swing.JPanel {
         }
         
         
-        MatchGraph.selectedobjects.clear();
+        //MatchGraph.selectedobjects.clear();
         
-        jPanel1.revalidate();*/
+        jPanel1.revalidate();
     }
     
     public ArrayList<String> getListOfElement()

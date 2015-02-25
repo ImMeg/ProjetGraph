@@ -179,6 +179,11 @@ public class MatchGraph extends JApplet {
         
     }
     
+    public  Collection getSelectedVertex()
+    {
+        return vv.getPickedVertexState().getPicked();
+    }
+    
     public void matcherGraph() {
 //       graph.addVertex(title);
 //       for(String s : selected ) {
@@ -197,7 +202,7 @@ public class MatchGraph extends JApplet {
 //               }
 //           graph.removeVertex(s);
         
-        Collection picked = new HashSet(vv.getPickedVertexState().getPicked());
+        Collection picked = getSelectedVertex();
 
         GraphCollapser mycollapser = new GraphCollapser(graph);
         Graph inGraph = layout.getGraph();

@@ -5,11 +5,8 @@
  */
 package view;
 
-import view.AddAttribute;
-import view.AddDimension;
+import view.AddSeveralAttribute;
 import graph.MatchGraph;
-import java.awt.GridLayout;
-import javax.swing.JFrame;
 
 
 
@@ -23,15 +20,14 @@ public class Graph extends javax.swing.JFrame {
     
     public Graph() {
         this.initComponents();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mg = new MatchGraph();
         jInternalFrame1.setContentPane(mg);
         jInternalFrame1.setVisible(true);
-        this.setContentPane(jInternalFrame1);
-        this.setLayout(new GridLayout());
-        this.setSize(1200, 700);
-        this.add(new AddAttribute());
+        jPanel2.add(new AddSeveralAttribute(mg));
+        
     }
+    
+    
     
     /*static public Object[] getSelectedObjects()
     {
@@ -55,8 +51,13 @@ public class Graph extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSplitPane1 = new javax.swing.JSplitPane();
         jInternalFrame1 = new javax.swing.JInternalFrame();
-        jInternalFrame2 = new javax.swing.JInternalFrame();
+        jPanel2 = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1200, 700));
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jInternalFrame1.setVisible(true);
 
@@ -71,33 +72,12 @@ public class Graph extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jSplitPane1.setLeftComponent(jInternalFrame1);
 
-        jInternalFrame2.setVisible(true);
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+        jSplitPane1.setRightComponent(jPanel2);
 
-        javax.swing.GroupLayout jInternalFrame2Layout = new javax.swing.GroupLayout(jInternalFrame2.getContentPane());
-        jInternalFrame2.getContentPane().setLayout(jInternalFrame2Layout);
-        jInternalFrame2Layout.setHorizontalGroup(
-            jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 203, Short.MAX_VALUE)
-        );
-        jInternalFrame2Layout.setVerticalGroup(
-            jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 299, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 302, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jInternalFrame2)
-        );
+        getContentPane().add(jSplitPane1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -139,6 +119,7 @@ public class Graph extends javax.swing.JFrame {
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JInternalFrame jInternalFrame2;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 }

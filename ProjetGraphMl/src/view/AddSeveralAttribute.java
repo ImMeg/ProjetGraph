@@ -5,6 +5,7 @@
  */
 package view;
 
+import graph.MatchGraph;
 import java.util.ArrayList;
 import javax.swing.tree.MutableTreeNode;
 
@@ -15,11 +16,13 @@ import javax.swing.tree.MutableTreeNode;
 public class AddSeveralAttribute extends javax.swing.JPanel {
 
     private static ArrayList<AddAttribute> listOfAttribute;
+    private MatchGraph graph;
     /**
      * Creates new form AddSeveralAttribute
      */
-    public AddSeveralAttribute() {
+    public AddSeveralAttribute(MatchGraph graph) {
         listOfAttribute = new ArrayList<AddAttribute>();
+        this.graph = graph;
         initComponents();
     }
 
@@ -96,7 +99,7 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        listOfAttribute.add(new AddAttribute());
+        listOfAttribute.add(new AddAttribute(graph));
         jPanel1.add(listOfAttribute.get(listOfAttribute.size()-1));
         jPanel1.revalidate();
         System.out.println("Action : + ");
