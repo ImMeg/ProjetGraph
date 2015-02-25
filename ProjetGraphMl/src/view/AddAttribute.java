@@ -167,6 +167,11 @@ public class AddAttribute extends javax.swing.JPanel {
         return listOfElement;
     }
     
+    public String getNameAttribute()
+    {
+        return jTextField1.getText();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;

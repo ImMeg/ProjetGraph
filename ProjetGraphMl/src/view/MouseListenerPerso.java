@@ -7,6 +7,7 @@ package view;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JPopupMenu;
 
 /**
  *
@@ -31,6 +32,7 @@ public class MouseListenerPerso implements MouseListener {
         } else if(buttonDown == MouseEvent.BUTTON3) {
                // Bouton DROIT enfoncé
             System.out.println("Clic Droit");
+            new JPopupMenu("Clik").setVisible(true);
         }
     }
 

@@ -7,6 +7,8 @@ package view;
 
 import graph.MatchGraph;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -121,6 +123,16 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
         {
             liste = ada.getListOfElement().toArray();
         }*/
+    }
+    
+    public HashMap<String,ArrayList<String>> getAllElements()
+    {
+        HashMap<String,ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+        for ( AddAttribute attribute : listOfAttribute)
+        {
+            map.put(attribute.getNameAttribute(), attribute.getListOfElement());
+        }
+        return map;
     }
     
 
