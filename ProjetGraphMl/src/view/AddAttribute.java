@@ -5,6 +5,7 @@
  */
 package view;
 
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import graph.MatchGraph;
 import java.awt.GridLayout;
 import java.awt.ItemSelectable;
@@ -140,6 +141,7 @@ public class AddAttribute extends javax.swing.JPanel {
       
         
         
+        
          for (String it =""; objects.hasNext() ;  ){
              it = objects.next();
              
@@ -151,6 +153,8 @@ public class AddAttribute extends javax.swing.JPanel {
                 listOfElement.add(it);
             }
         }
+         
+        graph.matcherGraph();
         
         
         //MatchGraph.selectedobjects.clear();

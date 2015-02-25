@@ -23,7 +23,7 @@ public class Graph extends javax.swing.JFrame {
         this.initComponents();
         jInternalFrame1.setContentPane(mg);
         jInternalFrame1.setVisible(true);
-        jPanel2.add(new AddDimension(mg));
+        jPanel2.add(new AddSeveralAttribute(mg));
         
     }
     
