@@ -9,6 +9,8 @@ import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import edu.uci.ics.jung.graph.Forest;
+import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.DefaultVisualizationModel;
 import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
 import edu.uci.ics.jung.visualization.VisualizationModel;
@@ -23,6 +25,7 @@ import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.picking.PickedState;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
 import edu.uci.ics.jung.visualization.subLayout.GraphCollapser;
+import edu.uci.ics.jung.visualization.subLayout.TreeCollapser;
 import edu.uci.ics.jung.visualization.util.PredicatedParallelEdgeIndexFunction;
 import java.awt.Color;
 import java.awt.Container;
@@ -38,7 +41,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -66,8 +71,7 @@ public class MatchGraph extends JApplet {
 
     Factory<String> vertexFactory = new MatchGraph.VertexFactory();
     Factory<String> edgeFactory = new MatchGraph.EdgeFactory();
-    PickedState<String> pickedState ;
-    public static ArrayList<String> selectedobjects = new ArrayList<>();
+    public static HashSet<String> selectedobjects = new HashSet<>();
     
     public MatchGraph() {
             graph.addVertex("YEAR");
@@ -138,18 +142,7 @@ public class MatchGraph extends JApplet {
                 = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
 
         vv.setGraphMouse(graphMouse);
-        
-        pickedState = vv.getPickedVertexState();
-        pickedState.addItemListener(new ItemListener() {
 
-                @Override
-                public void itemStateChanged(ItemEvent e) {
-                    String selected = (String) e.getItem();
-                    if(pickedState.isPicked(selected))
-                        selectedobjects.add(selected);
-                }
-            });
-        
         vv.addMouseListener(new MouseListener() {
 
                 @Override
@@ -162,6 +155,7 @@ public class MatchGraph extends JApplet {
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
+                    //selectedobjects = vv.getPickedVertexState().getPicked();
                     matcherGraph(selectedobjects, "lalila");
                     vv.repaint();
                     
@@ -187,23 +181,45 @@ public class MatchGraph extends JApplet {
     }
     
     public void matcherGraph(ArrayList<String> selected,String title) {
-       graph.addVertex(title);
-       for(String s : selected ) {
-           //Gestion des predecesseur
-           for (String pred : graph.getPredecessors(s)) {
-               if(!selected.contains(pred))                
-                    graph.addEdge(pred+"->"+title, pred, title);
-                graph.removeEdge(graph.findEdge(pred, s));
-               }
-           
-            //Gestion des successeurs
-           for (String succ : graph.getSuccessors(s)) {
-               if(!selected.contains(succ))                
-                    graph.addEdge(title+"->"+succ, title, succ);
-                graph.removeEdge(graph.findEdge(s, succ));
-               }
-           graph.removeVertex(s);
-       }
+//       graph.addVertex(title);
+//       for(String s : selected ) {
+//           //Gestion des predecesseur
+//           for (String pred : graph.getPredecessors(s)) {
+//               if(!selected.contains(pred))                
+//                    graph.addEdge(pred+"->"+title, pred, title);
+//                graph.removeEdge(graph.findEdge(pred, s));
+//               }
+//           
+//            //Gestion des successeurs
+//           for (String succ : graph.getSuccessors(s)) {
+//               if(!selected.contains(succ))                
+//                    graph.addEdge(title+"->"+succ, title, succ);
+//                graph.removeEdge(graph.findEdge(s, succ));
+//               }
+//           graph.removeVertex(s);
+        
+        Collection picked = new HashSet(vv.getPickedVertexState().getPicked());
+
+        GraphCollapser mycollapser = new GraphCollapser(graph);
+        Graph inGraph = (Forest) layout.getGraph();
+        Graph clusterTree = mycollapser.getClusterGraph(inGraph, picked);
+        Graph g = mycollapser.collapse(layout.getGraph(), inGraph);
+
+        double sumx = 0;
+        double sumy = 0;
+        // tu vois ce code récupère la position de tous les vertex comme étant des object donc il te suffit de lire les éléments de picked :) 
+        for (Object v : picked) {
+            Point2D p = (Point2D) layout.transform(v.toString());
+            sumx += p.getX();
+            sumy += p.getY();
+        }
+        Point2D cp = new Point2D.Double(sumx / picked.size(), sumy / picked.size());
+        vv.getRenderContext().getParallelEdgeIndexFunction().reset();
+        layout.setGraph(g);
+        layout.setLocation(clusterTree.toString(), cp);
+        vv.getPickedVertexState().clear();
+        vv.repaint();
+               
     } 
     
      class VertexFactory implements Factory<String> {
