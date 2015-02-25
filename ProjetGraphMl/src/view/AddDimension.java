@@ -21,6 +21,11 @@ public class AddDimension extends javax.swing.JPanel {
         initComponents();
         graph = mg;
     }
+    
+    public AddDimension() {
+        initComponents();
+        graph = null;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -30,6 +30,7 @@ public class AddAttribute extends javax.swing.JPanel {
     private MatchGraph graph;
     
     ArrayList<String> listOfElement;
+    ArrayList<JCheckBox> listOfCheckBox;
     
     /*public AddAttribute() {
         initComponents();
@@ -40,6 +41,7 @@ public class AddAttribute extends javax.swing.JPanel {
     {
         initComponents();
         listOfElement = list;
+        listOfCheckBox = new ArrayList<>();
     }
     
     public AddAttribute (MatchGraph graph)
@@ -47,6 +49,7 @@ public class AddAttribute extends javax.swing.JPanel {
         initComponents();
         listOfElement = new ArrayList<String>();
         this.graph = graph;
+        listOfCheckBox = new ArrayList<>();
     }
 
     /**
@@ -150,6 +153,7 @@ public class AddAttribute extends javax.swing.JPanel {
                 JCheckBox check = new JCheckBox(it);
                 check.setSelected(true);
                 jPanel1.add(check);
+                listOfCheckBox.add(check);
                 listOfElement.add(it);
             }
         }
@@ -164,6 +168,12 @@ public class AddAttribute extends javax.swing.JPanel {
     
     public ArrayList<String> getListOfElement()
     {
+        /* A REFAIRE */
+        for ( JCheckBox check : listOfCheckBox )
+        {
+            if ( !check.isSelected())
+                listOfElement.remove(check.getText());
+        }
         return listOfElement;
     }
     

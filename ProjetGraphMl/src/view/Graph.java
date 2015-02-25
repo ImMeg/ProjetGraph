@@ -27,6 +27,10 @@ public class Graph extends javax.swing.JFrame {
         
     }
     
+    public void AddTable()
+    {
+        jPanel2.add(new AddSeveralAttribute(mg));
+    }
     
     
     /*static public Object[] getSelectedObjects()
