@@ -88,6 +88,19 @@ public class MatchGraph extends JApplet {
             graph.addEdge("edge4", "COUNTRY", "Allemagne");
             graph.addEdge("edge5", "COUNTRY", "Chine");
             graph.addEdge("edge6", "COUNTRY", "France");
+            graph.addVertex("QUANTITY");
+            graph.addVertex("90");
+            graph.addVertex("65");
+            graph.addVertex("1300");
+            graph.addEdge("Q->90", "QUANTITY", "90");
+            graph.addEdge("Fr->90", "Allemagne", "90");
+            graph.addEdge("Q->65", "QUANTITY", "65");
+            graph.addEdge("2012->65", "2012", "65");
+            graph.addEdge("Q->1300", "QUANTITY", "1300");
+            graph.addEdge("Fr->1300", "Chine", "1300");
+            graph.addEdge("Fr->65", "France", "65");
+            graph.addEdge("2012->90", "2012", "90");
+            graph.addEdge("2012->1300", "2012", "1300");
 
         Dimension preferredSize = new Dimension(500, 500);
         //layout = new StaticLayout(graph,preferredSize);

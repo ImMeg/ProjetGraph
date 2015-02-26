@@ -5,6 +5,7 @@
  */
 package view;
 
+import bdd.Bdd;
 import graph.MatchGraph;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -140,6 +141,7 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         getAllElements();
+        Bdd.createTable(getTableName(),getAllElements());
         System.out.println("Table name:" +getTableName() +"\n"+getAllElements());
         
     }//GEN-LAST:event_jButton1ActionPerformed
