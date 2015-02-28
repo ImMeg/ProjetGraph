@@ -167,8 +167,7 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
         {
             map.put(attribute.getNameAttribute(), attribute.getListOfElement());
         }
-        
-        
+
         return map;
     }
     
@@ -176,6 +175,13 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
     {
         return jTextFieldTableName.getText();
     }
+    
+    public int getAttributeCompt()
+    {
+        return listOfAttribute.size();
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -188,4 +194,6 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldTableName;
     private view.TreePerso treePerso1;
     // End of variables declaration//GEN-END:variables
+
+  
 }

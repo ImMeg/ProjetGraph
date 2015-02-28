@@ -8,6 +8,10 @@ package view;
 import graph.MatchGraph;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  *
@@ -17,6 +21,7 @@ public class ListenerAddAttribute implements ActionListener
 {
     private AddAttribute a;
     private static MatchGraph g;
+    private static AddSeveralAttribute s;
     
     public ListenerAddAttribute(AddAttribute b)
     {
@@ -29,6 +34,7 @@ public class ListenerAddAttribute implements ActionListener
         System.out.println("Jesuislelistenner");
         a.addElementToJPanel(g.getSelectedVertex());
         g.matcherGraph();
+        checkLink();
     }
     
     public static void setMatchGraph (MatchGraph ga)
@@ -36,4 +42,24 @@ public class ListenerAddAttribute implements ActionListener
         g = ga;
     }
     
+    public static void setSeveralAttribute(AddSeveralAttribute sa)
+    {
+        s = sa;
+    }
+
+    private void checkLink() {
+       /* if ( s.getAttributeCompt() > 1 )
+        {
+            System.out.println(s.getAllElements());
+            Collection<ArrayList<String>> liste = s.getAllElements().values();
+            System.out.println(s.getAllElements().values());
+            Iterator i = liste.iterator();
+            for ( ; i.hasNext() ; )
+            {
+                ArrayList<String> al = (ArrayList<String>) i.next();
+                System.out.println("test" +al);
+                System.out.println(g.edgeExistBetween("France", "65"));
+            }
+        }*/
+    }
 }

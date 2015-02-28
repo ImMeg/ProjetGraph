@@ -216,6 +216,12 @@ public class MatchGraph extends JApplet {
         vv.repaint();
                
     } 
+
+    
+
+    
+    
+    
     
      class VertexFactory implements Factory<String> {
 
@@ -309,6 +315,17 @@ public class MatchGraph extends JApplet {
         System.out.println("Vertex non trouvé");
         return null;
         
+    }
+    
+        /* Ajout de Thomas */
+    public Collection<String> getAllEdges ()
+    {
+        return graph.getEdges();
+    }
+    
+    public boolean edgeExistBetween( String s1 ,String s2)
+    {
+        return (graph.findEdge(s1, s2) != null || graph.findEdge(s2, s1) != null);
     }
 
 }
