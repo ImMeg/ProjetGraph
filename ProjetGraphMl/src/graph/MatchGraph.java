@@ -166,6 +166,7 @@ public class MatchGraph extends JApplet {
         modeBox.addItemListener(graphMouse.getModeListener());
         graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
         
+        
     }
     
     public HashSet<String> getSelectedVertex()

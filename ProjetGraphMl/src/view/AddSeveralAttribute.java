@@ -19,14 +19,14 @@ import javax.swing.JOptionPane;
 public class AddSeveralAttribute extends javax.swing.JPanel {
 
     private static ArrayList<AddAttribute> listOfAttribute;
-    private MatchGraph graph;
     /**
      * Creates new form AddSeveralAttribute
      */
-    public AddSeveralAttribute(MatchGraph graph) {
+    public AddSeveralAttribute() {
         listOfAttribute = new ArrayList<AddAttribute>();
-        this.graph = graph;
         initComponents();
+        
+
         
     }
 
@@ -49,6 +49,8 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
         jTextFieldTableName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
+        setToolTipText("Add Dimension");
+
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,6 +59,11 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
         });
 
         jButton2.setText("CANCEL");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("ADD ATTRIBUTE");
@@ -73,11 +80,6 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
 
         jTextFieldTableName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextFieldTableName.setText(" ");
-        jTextFieldTableName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldTableNameActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Table name :");
@@ -122,7 +124,7 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
                                 .addComponent(jTextFieldTableName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel2)))
                         .addGap(3, 3, 3)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton2)
@@ -133,21 +135,19 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        listOfAttribute.add(new AddAttribute(graph));
+        listOfAttribute.add(new AddAttribute());
         jPanel1.add(listOfAttribute.get(listOfAttribute.size()-1));
         jPanel1.revalidate();
         System.out.println("Action : + ");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        getAllElements();
         Bdd.createTable(getTableName(), getAllElements());
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextFieldTableNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTableNameActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldTableNameActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     static public void majTree()
     {
