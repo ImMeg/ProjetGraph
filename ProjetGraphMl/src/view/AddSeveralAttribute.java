@@ -18,12 +18,12 @@ import javax.swing.JOptionPane;
  */
 public class AddSeveralAttribute extends javax.swing.JPanel {
 
-    private static ArrayList<AddAttribute> listOfAttribute;
+    private static ArrayList<ViewAddAttribute> listOfAttribute;
     /**
      * Creates new form AddSeveralAttribute
      */
     public AddSeveralAttribute() {
-        listOfAttribute = new ArrayList<AddAttribute>();
+        listOfAttribute = new ArrayList<ViewAddAttribute>();
         initComponents();
         
 
@@ -135,7 +135,7 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        listOfAttribute.add(new AddAttribute());
+        listOfAttribute.add(new ViewAddAttribute());
         jPanel1.add(listOfAttribute.get(listOfAttribute.size()-1));
         jPanel1.revalidate();
         System.out.println("Action : + ");
@@ -163,7 +163,7 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
         HashMap<String,ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
         
         
-        for ( AddAttribute attribute : listOfAttribute)
+        for ( ViewAddAttribute attribute : listOfAttribute)
         {
             map.put(attribute.getNameAttribute(), attribute.getListOfElement());
         }
@@ -179,6 +179,11 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
     public int getAttributeCompt()
     {
         return listOfAttribute.size();
+    }
+    
+    public ArrayList<ViewAddAttribute> getListOfAttribute()
+    {
+        return listOfAttribute;
     }
     
     

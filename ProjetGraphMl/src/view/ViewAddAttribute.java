@@ -23,7 +23,7 @@ import javax.swing.JPanel;
  *
  * @author Thomas
  */
-public class AddAttribute extends javax.swing.JPanel {
+public class ViewAddAttribute extends javax.swing.JPanel {
 
     /**
      * Creates new form AddAttribute
@@ -38,14 +38,14 @@ public class AddAttribute extends javax.swing.JPanel {
         listOfElement = new ArrayList<String>();
     }*/
     
-    public AddAttribute (ArrayList<String> list)
+    public ViewAddAttribute (ArrayList<String> list)
     {
         initComponents();
         listOfElement = list;
         listOfCheckBox = new ArrayList<>();
     }
     
-    public AddAttribute ()
+    public ViewAddAttribute ()
     {
         initComponents();
         listOfElement = new ArrayList<String>();
