@@ -162,8 +162,8 @@ public class MatchGraph extends JApplet {
         GraphZoomScrollPane gzsp = new GraphZoomScrollPane(vv);
         content.add(gzsp);
         
-//        JComboBox modeBox = graphMouse.getModeComboBox();
-//        modeBox.addItemListener(graphMouse.getModeListener());
+        JComboBox modeBox = graphMouse.getModeComboBox();
+        modeBox.addItemListener(graphMouse.getModeListener());
         graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
         
     }
