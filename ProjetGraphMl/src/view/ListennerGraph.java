@@ -12,12 +12,17 @@ import java.awt.event.ActionListener;
  *
  * @author Thomas
  */
-public class ListennerAddAttribute implements ActionListener
+public class ListennerGraph implements ActionListener
 {
+    ViewGraph graph;
+    
+    public ListennerGraph(ViewGraph g)
+    {
+        graph = g;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        //graph.showViewAddSeveralAttribute();
     }
-    
 }

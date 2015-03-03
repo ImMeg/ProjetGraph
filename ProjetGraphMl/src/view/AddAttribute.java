@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.awt.ItemSelectable;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import javafx.scene.input.KeyCode;
 import javax.swing.JCheckBox;
@@ -27,7 +28,6 @@ public class AddAttribute extends javax.swing.JPanel {
      * Creates new form AddAttribute
      */
     
-    private MatchGraph graph;
     
     ArrayList<String> listOfElement;
     ArrayList<JCheckBox> listOfCheckBox;
@@ -44,12 +44,12 @@ public class AddAttribute extends javax.swing.JPanel {
         listOfCheckBox = new ArrayList<>();
     }
     
-    public AddAttribute (MatchGraph graph)
+    public AddAttribute ()
     {
         initComponents();
         listOfElement = new ArrayList<String>();
-        this.graph = graph;
         listOfCheckBox = new ArrayList<>();
+        jButton1.addActionListener(new ListenerAddAttribute(this));
     }
 
     /**
@@ -84,11 +84,6 @@ public class AddAttribute extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jPanel1);
 
         jButton1.setText("Add Selected Vertex");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -128,19 +123,16 @@ public class AddAttribute extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        addElementToJPanel();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
         if ( evt.getKeyCode() == KeyEvent.VK_ENTER)
             //TreePerso.addNode(jTextField1.getText());
             System.out.println("Validation du nom d'attribut");
     }//GEN-LAST:event_jTextField1KeyPressed
-
-    public void addElementToJPanel()
+    
+    
+    public void addElementToJPanel(HashSet<String> selectedVertex)
     {
-        Iterator<String> objects = graph.getSelectedVertex().iterator();
+        Iterator<String> objects = selectedVertex.iterator();
       
         
         
@@ -157,11 +149,6 @@ public class AddAttribute extends javax.swing.JPanel {
                 listOfElement.add(it);
             }
         }
-         
-        graph.matcherGraph();
-        
-        
-        //MatchGraph.selectedobjects.clear();
         
         jPanel1.revalidate();
     }
@@ -181,6 +168,7 @@ public class AddAttribute extends javax.swing.JPanel {
     {
         return jTextField1.getText();
     }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

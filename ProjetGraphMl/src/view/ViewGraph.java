@@ -5,7 +5,6 @@
  */
 package view;
 
-import view.AddSeveralAttribute;
 import graph.MatchGraph;
 
 
@@ -14,23 +13,23 @@ import graph.MatchGraph;
  *
  * @author loicleger
  */
-public class Graph extends javax.swing.JFrame {
+public class ViewGraph extends javax.swing.JFrame {
  
-    static public MatchGraph mg;
+    public MatchGraph mg;
     
-    public Graph() {
-        mg = new MatchGraph();
+    public ViewGraph(MatchGraph m) {
+        mg = m;
         this.initComponents();
-        jInternalFrame1.setContentPane(mg);
-        jInternalFrame1.setVisible(true);
-        jPanel2.add(new AddSeveralAttribute(mg));
+        
+        /*jInternalFrame1.setContentPane(mg);
+        jInternalFrame1.setVisible(true);*/
+        //jPanel2.add(new AddSeveralAttribute());
+        
+        this.setContentPane(mg);
+        
         
     }
-    
-    public void AddTable()
-    {
-        jPanel2.add(new AddSeveralAttribute(mg));
-    }
+
     
     
     /*static public Object[] getSelectedObjects()
@@ -55,33 +54,10 @@ public class Graph extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jInternalFrame1 = new javax.swing.JInternalFrame();
-        jPanel2 = new javax.swing.JPanel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 700));
+        setTitle("Graph");
+        setPreferredSize(new java.awt.Dimension(700, 700));
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
-
-        jInternalFrame1.setVisible(true);
-
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jInternalFrame1Layout.setVerticalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jSplitPane1.setLeftComponent(jInternalFrame1);
-
-        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
-        jSplitPane1.setRightComponent(jPanel2);
-
-        getContentPane().add(jSplitPane1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -103,31 +79,26 @@ public class Graph extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Graph.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewGraph.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Graph.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewGraph.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Graph.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewGraph.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Graph.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewGraph.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Graph().setVisible(true);
+                new ViewGraph(new MatchGraph()).setVisible(true);
             }
         });
     }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 
-    public void showAddSeveralAttribute() {
-        jPanel2.add(new AddSeveralAttribute(mg));
-    }
 }
