@@ -154,7 +154,7 @@ public class MatchGraph extends JApplet {
         final EditingModalGraphMouse<String, String> graphMouse
                 = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
 
-        vv.setGraphMouse(graphMouse);
+         vv.setGraphMouse(graphMouse);
 
         vv.addMouseListener(new MouseListenerPerso());
         
@@ -162,8 +162,8 @@ public class MatchGraph extends JApplet {
         GraphZoomScrollPane gzsp = new GraphZoomScrollPane(vv);
         content.add(gzsp);
         
-        JComboBox modeBox = graphMouse.getModeComboBox();
-        modeBox.addItemListener(graphMouse.getModeListener());
+//        JComboBox modeBox = graphMouse.getModeComboBox();
+//        modeBox.addItemListener(graphMouse.getModeListener());
         graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
         
     }
