@@ -55,7 +55,7 @@ import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.functors.MapTransformer;
 import org.apache.commons.collections15.map.LazyMap;
-import view.MouseListenerPerso;
+import listeners.MouseListenerPerso;
 
 /**
  *

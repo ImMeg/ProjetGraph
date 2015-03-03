@@ -5,6 +5,7 @@
  */
 package view;
 
+import listeners.ListenerAddAttribute;
 import java.awt.Component;
 import javax.swing.JPanel;
 

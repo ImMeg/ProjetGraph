@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package listeners;
 
 import graph.MatchGraph;
 import java.awt.event.ActionEvent;
@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import view.AddAttribute;
+import view.AddSeveralAttribute;
 
 /**
  *
