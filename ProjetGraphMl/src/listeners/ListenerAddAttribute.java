@@ -12,8 +12,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 import view.ViewAddAttribute;
-import view.AddSeveralAttribute;
+import view.ViewAddSeveralAttribute;
 import view.DataStructure;
 
 /**
@@ -24,7 +25,7 @@ public class ListenerAddAttribute implements ActionListener
 {
     private ViewAddAttribute a;
     private static MatchGraph g;
-    private static AddSeveralAttribute s;
+    private static ViewAddSeveralAttribute s;
     
     public ListenerAddAttribute(ViewAddAttribute b)
     {
@@ -34,6 +35,11 @@ public class ListenerAddAttribute implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        if (a.getNameAttribute().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Please name the attribute before adding elements", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         System.out.println("Jesuislelistenner");
         a.addElementToJPanel(g.getSelectedVertex());
         g.matcherGraph();
@@ -45,35 +51,30 @@ public class ListenerAddAttribute implements ActionListener
         g = ga;
     }
     
-    public static void setSeveralAttribute(AddSeveralAttribute sa)
+    public static void setSeveralAttribute(ViewAddSeveralAttribute sa)
     {
         s = sa;
     }
 
     private void checkLink() {
+        DataStructure<String> d = new DataStructure<>();
+        d.setData(s.getAllElements());
+        //System.out.println(d.getData());
+        // Nombre d'elements dans un attribut (le premier)
+        //int nbrElement = ((ArrayList<String>)d.getElementOfAttribute(d.getData().keySet().iterator().next())).size();
         
-       /*Collection<String> suivants = g.getSuccessors(s.getListOfAttribute().get(0).getListOfElement().get(0));
-       System.out.println("suivants :" +suivants);*/
-        DataStructure d = new DataStructure();
-        //d.setData(s.getAllElements());
-        /*System.out.println("0" +d.getLine(0));
-        System.out.println("1" +d.getLine(1));*/
-        ArrayList<String> yo = new ArrayList<>();
-        yo.add("France");
-        yo.add("Allemagne");
-        
-        //d.addLine(0,yo );
-        System.out.println("here");
-        /*
-        
-        d.addLine(0, yo);
-        d.addLine(1, yo);
-            System.out.println("and here");
-            for (String s : g.getSuccessors(d.getLine(0).get(0)))
-                if (s.equals( d.getLine(0).get(1)))
-                    System.out.println("Ligne 0 Checked and no problem");
-                else
-                    System.out.println("Incoherent Ligne 0");*/
-        
+        for ( int i = 0 ; i < 2 ; i++ )
+        {
+            ArrayList<String> line = d.getLine(i);
+            boolean correct = true;
+            for ( int j = 0 ; j+1 < d.getAttributeCount() ;j++)
+            {
+                if ( !(g.getSuccessors(line.get(j)).contains(line.get(j+1))))
+                    correct = false;
+            }
+            System.out.println(line +" est " +correct);
+                
+        }
+       
     }
 }

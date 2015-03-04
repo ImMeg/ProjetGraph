@@ -6,28 +6,32 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
  * @author Thomas
  */
-public class DataStructure 
+public class DataStructure <Type>
 {
-    private HashMap<String,ArrayList<String>> attributs;
+        
+     Map<String,ArrayList<Type>> attributs;
     private String tableName;
 
     public DataStructure() {
-        attributs = new HashMap<>();
+        attributs = new LinkedHashMap<>();
     }
     
-    public ArrayList<String> getElementOfAttribute( String s )
+    public ArrayList<Type> getElementOfAttribute( String s )
     {
         return attributs.get(s);
     }
     
-    public boolean attributeContains (String attribut, String s)
+    public boolean attributeContains (String attribut, Type s)
     {
         if ( attributs.get(attribut) != null )
             return attributs.get(attribut).contains(s);
@@ -37,50 +41,59 @@ public class DataStructure
     
     public void addAttribute (String s)
     {
-        attributs.put(s, new ArrayList<String>());
+        attributs.put(s, new ArrayList<Type>());
     }
     
-    public void addElementToAttribute (String attribute, String s)
+    public void addElementToAttribute (String attribute, Type s)
     {
         attributs.get(attribute).add(s);
     }
     
     
-    public ArrayList<String> getLine ( int number )
+    public ArrayList<Type> getLine ( int number )
     {
-        ArrayList<String> line = new ArrayList<>();
+        ArrayList<Type> line = new ArrayList<>();
         for ( Object o : attributs.values().toArray())
         {
-            ArrayList<String> a = (ArrayList<String>)o;
+            ArrayList<Type> a = (ArrayList<Type>)o;
             //System.out.println("A est :" +a);
             if ( a.size() > number )
                 line.add(a.get(number));
             else
-                line.add(" ");
+                line.add(null);
+        }
+        
+        // La liste est inversé ici, on doit la retourner (OU PAS)
+       /* ArrayList<String> temp = new ArrayList<>();
+        for ( int i = line.size()-1 ; i >= 0 ;i--)
+        {
+            temp.add(line.get(i));
         }
                 
+        return temp;*/
+        System.out.println(line);
         return line;
     }
     
-    public void addLine ( int index , ArrayList<String> elements )
+    public void addLine ( int index , ArrayList<Type> elements )
     {
         int i = 0;
         for ( Object o : attributs.values().toArray())
         {
-            ArrayList<String> a = (ArrayList<String>)o;
+            ArrayList<Type> a = (ArrayList<Type>)o;
             a.add(index,elements.get(i));
             i++;
         }
     }
     
-    public void setData (HashMap<String,ArrayList<String>> at)
+    public void setData (Map<String,ArrayList<Type>> at)
     {
         attributs = at;
         /*System.out.println(at);
         System.out.println(attributs);*/
     }
 
-    public HashMap<String,ArrayList<String>> getData() {
+    public Map<String,ArrayList<Type>> getData() {
         return attributs;
     }
 
