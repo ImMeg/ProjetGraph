@@ -7,6 +7,7 @@ package view;
 
 import listeners.ListenerAddAttribute;
 import graph.MatchGraph;
+import listeners.ListenerBoutonOkPrincipal;
 
 /**
  *
@@ -23,6 +24,10 @@ public class Lanceur
         a.setVisible(true);
         
         ListenerAddAttribute.setMatchGraph(mg);
+        DataStructure<String> data = new DataStructure<>();
+        ListenerAddAttribute.setDataStructure(data);
+        ListenerBoutonOkPrincipal.setDataStructure(data);
+        
     }
     
         

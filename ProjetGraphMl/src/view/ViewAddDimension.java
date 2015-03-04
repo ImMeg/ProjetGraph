@@ -12,21 +12,22 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import listeners.ListenerBoutonOkPrincipal;
 
 /**
  *
  * @author Thomas
  */
-public class ViewAddSeveralAttribute extends javax.swing.JPanel {
+public class ViewAddDimension extends javax.swing.JPanel {
 
     private static ArrayList<ViewAddAttribute> listOfAttribute;
     /**
      * Creates new form AddSeveralAttribute
      */
-    public ViewAddSeveralAttribute() {
+    public ViewAddDimension() {
         listOfAttribute = new ArrayList<ViewAddAttribute>();
         initComponents();
-        
+        jButton1.addActionListener(new ListenerBoutonOkPrincipal(this));
 
         
     }
@@ -149,13 +150,7 @@ public class ViewAddSeveralAttribute extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        if ( this.jTextFieldTableName.getText().isEmpty() )
-        {
-             JOptionPane.showMessageDialog(null, "Please name the TABLE before creating SQL file", "Information", JOptionPane.INFORMATION_MESSAGE);
-             return;
-        }
-
-        Bdd.createTable(getTableName(), getAllElements());
+     
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -175,18 +170,7 @@ public class ViewAddSeveralAttribute extends javax.swing.JPanel {
         }*/
     }
     
-    public Map<String,ArrayList<String>> getAllElements()
-    {
-       Map<String,ArrayList<String>> map = new LinkedHashMap<String, ArrayList<String>>();
-        
-        
-        for ( ViewAddAttribute attribute : listOfAttribute)
-        {
-            map.put(attribute.getNameAttribute(), attribute.getListOfElement());
-        }
-
-        return map;
-    }
+    
     
     public String getTableName()
     {

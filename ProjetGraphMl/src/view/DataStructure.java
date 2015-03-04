@@ -19,7 +19,7 @@ import java.util.TreeMap;
 public class DataStructure <Type>
 {
         
-     Map<String,ArrayList<Type>> attributs;
+    Map<String,ArrayList<Type>> attributs;
     private String tableName;
 
     public DataStructure() {
@@ -42,6 +42,11 @@ public class DataStructure <Type>
     public void addAttribute (String s)
     {
         attributs.put(s, new ArrayList<Type>());
+    }
+    
+    public boolean attributeExist ( String s )
+    {
+        return attributs.containsKey(s);
     }
     
     public void addElementToAttribute (String attribute, Type s)
@@ -94,7 +99,7 @@ public class DataStructure <Type>
     }
 
     public Map<String,ArrayList<Type>> getData() {
-        return attributs;
+        return (HashMap < String, ArrayList<Type>>) attributs;
     }
 
     public String getTableName() {

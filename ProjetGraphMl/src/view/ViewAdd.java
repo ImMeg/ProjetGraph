@@ -20,7 +20,7 @@ public class ViewAdd extends javax.swing.JFrame {
      */
     public ViewAdd() {
         initComponents();
-        ViewAddSeveralAttribute asa = new ViewAddSeveralAttribute();
+        ViewAddDimension asa = new ViewAddDimension();
         ListenerAddAttribute.setSeveralAttribute(asa);
         setPanel(asa);
 

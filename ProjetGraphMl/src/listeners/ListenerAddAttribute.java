@@ -8,13 +8,15 @@ package listeners;
 import graph.MatchGraph;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import view.ViewAddAttribute;
-import view.ViewAddSeveralAttribute;
+import view.ViewAddDimension;
 import view.DataStructure;
 
 /**
@@ -25,7 +27,8 @@ public class ListenerAddAttribute implements ActionListener
 {
     private ViewAddAttribute a;
     private static MatchGraph g;
-    private static ViewAddSeveralAttribute s;
+    private static ViewAddDimension s;
+    private static DataStructure<String> data = new DataStructure<>();
     
     public ListenerAddAttribute(ViewAddAttribute b)
     {
@@ -41,7 +44,17 @@ public class ListenerAddAttribute implements ActionListener
             return;
         }
         System.out.println("Jesuislelistenner");
-        a.addElementToJPanel(g.getSelectedVertex());
+        
+        if (!data.attributeExist(a.getNameAttribute()))
+            data.addAttribute(a.getNameAttribute());
+        
+        Iterator<String> objects = g.getSelectedVertex().iterator();
+
+         for (String it =""; objects.hasNext() ;  ){
+             it = objects.next();
+             data.addElementToAttribute(a.getNameAttribute(), it);
+        }
+        a.addElementToJPanel(data.getElementOfAttribute(a.getNameAttribute()));
         g.matcherGraph();
         checkLink();
     }
@@ -51,23 +64,28 @@ public class ListenerAddAttribute implements ActionListener
         g = ga;
     }
     
-    public static void setSeveralAttribute(ViewAddSeveralAttribute sa)
+    public static void setSeveralAttribute(ViewAddDimension sa)
     {
         s = sa;
     }
 
+    public static void setDataStructure(DataStructure<String> data) {
+        ListenerAddAttribute.data = data;
+    }
+
+    
+    
     private void checkLink() {
-        DataStructure<String> d = new DataStructure<>();
-        d.setData(s.getAllElements());
+
         //System.out.println(d.getData());
         // Nombre d'elements dans un attribut (le premier)
         //int nbrElement = ((ArrayList<String>)d.getElementOfAttribute(d.getData().keySet().iterator().next())).size();
         
         for ( int i = 0 ; i < 2 ; i++ )
         {
-            ArrayList<String> line = d.getLine(i);
+            ArrayList<String> line = data.getLine(i);
             boolean correct = true;
-            for ( int j = 0 ; j+1 < d.getAttributeCount() ;j++)
+            for ( int j = 0 ; j+1 < data.getAttributeCount() ;j++)
             {
                 if ( !(g.getSuccessors(line.get(j)).contains(line.get(j+1))))
                     correct = false;

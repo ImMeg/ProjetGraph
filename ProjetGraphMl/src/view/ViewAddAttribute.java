@@ -30,7 +30,6 @@ public class ViewAddAttribute extends javax.swing.JPanel {
      */
     
     
-    ArrayList<String> listOfElement;
     ArrayList<JCheckBox> listOfCheckBox;
     
     /*public AddAttribute() {
@@ -38,17 +37,11 @@ public class ViewAddAttribute extends javax.swing.JPanel {
         listOfElement = new ArrayList<String>();
     }*/
     
-    public ViewAddAttribute (ArrayList<String> list)
-    {
-        initComponents();
-        listOfElement = list;
-        listOfCheckBox = new ArrayList<>();
-    }
     
     public ViewAddAttribute ()
     {
         initComponents();
-        listOfElement = new ArrayList<String>();
+        
         listOfCheckBox = new ArrayList<>();
         jButton1.addActionListener(new ListenerAddAttribute(this));
     }
@@ -131,39 +124,23 @@ public class ViewAddAttribute extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1KeyPressed
     
     
-    public void addElementToJPanel(HashSet<String> selectedVertex)
+    public void addElementToJPanel(ArrayList<String> selectedVertex)
     {
-        Iterator<String> objects = selectedVertex.iterator();
+        
       
-        
-        
-        
-         for (String it =""; objects.hasNext() ;  ){
-             it = objects.next();
-             
-            if ( !(listOfElement.contains(it)))
-            {
-                JCheckBox check = new JCheckBox(it);
-                check.setSelected(true);
-                jPanel1.add(check);
-                listOfCheckBox.add(check);
-                listOfElement.add(it);
-            }
+        for ( String s : selectedVertex )
+        {
+            JCheckBox check = new JCheckBox(s);
+            check.setSelected(true);
+            jPanel1.add(check);
+            listOfCheckBox.add(check);
+
         }
-        
+
         jPanel1.revalidate();
     }
     
-    public ArrayList<String> getListOfElement()
-    {
-        /* A REFAIRE */
-        for ( JCheckBox check : listOfCheckBox )
-        {
-            if ( !check.isSelected())
-                listOfElement.remove(check.getText());
-        }
-        return listOfElement;
-    }
+   
     
     public String getNameAttribute()
     {
