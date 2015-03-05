@@ -13,18 +13,13 @@ import graph.MatchGraph;
  */
 public class AddDimension extends javax.swing.JPanel {
 
-    private MatchGraph graph;
     /**
      * Creates new form AddDimension
      */
-    public AddDimension(MatchGraph mg) {
-        initComponents();
-        graph = mg;
-    }
+
     
     public AddDimension() {
         initComponents();
-        graph = null;
     }
 
     /**

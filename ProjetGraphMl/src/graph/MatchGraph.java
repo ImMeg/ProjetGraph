@@ -331,5 +331,14 @@ public class MatchGraph extends JApplet {
     {
         return (graph.findEdge(s1, s2) != null || graph.findEdge(s2, s1) != null);
     }
-
+    
+    public Collection<String> getPredecessors (String s)
+    {
+        return (graph.getPredecessors(s));
+    }
+    
+    public Collection<String> getSuccessors (String s)
+    {
+        return (graph.getSuccessors(s));
+    }
 }

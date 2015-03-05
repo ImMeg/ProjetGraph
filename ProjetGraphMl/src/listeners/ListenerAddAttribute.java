@@ -8,12 +8,16 @@ package listeners;
 import graph.MatchGraph;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import view.AddAttribute;
-import view.AddSeveralAttribute;
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
+import view.ViewAddAttribute;
+import view.ViewAddDimension;
+import view.DataStructure;
 
 /**
  *
@@ -21,11 +25,12 @@ import view.AddSeveralAttribute;
  */
 public class ListenerAddAttribute implements ActionListener
 {
-    private AddAttribute a;
+    private ViewAddAttribute a;
     private static MatchGraph g;
-    private static AddSeveralAttribute s;
+    private static ViewAddDimension s;
+    private static DataStructure<String> data = new DataStructure<>();
     
-    public ListenerAddAttribute(AddAttribute b)
+    public ListenerAddAttribute(ViewAddAttribute b)
     {
         a = b;
     }
@@ -33,8 +38,23 @@ public class ListenerAddAttribute implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        if (a.getNameAttribute().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Please name the attribute before adding elements", "Information", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         System.out.println("Jesuislelistenner");
-        a.addElementToJPanel(g.getSelectedVertex());
+        
+        if (!data.attributeExist(a.getNameAttribute()))
+            data.addAttribute(a.getNameAttribute());
+        
+        Iterator<String> objects = g.getSelectedVertex().iterator();
+
+         for (String it =""; objects.hasNext() ;  ){
+             it = objects.next();
+             data.addElementToAttribute(a.getNameAttribute(), it);
+        }
+        a.addElementToJPanel(data.getElementOfAttribute(a.getNameAttribute()));
         g.matcherGraph();
         checkLink();
     }
@@ -44,24 +64,35 @@ public class ListenerAddAttribute implements ActionListener
         g = ga;
     }
     
-    public static void setSeveralAttribute(AddSeveralAttribute sa)
+    public static void setSeveralAttribute(ViewAddDimension sa)
     {
         s = sa;
     }
 
+    public static void setDataStructure(DataStructure<String> data) {
+        ListenerAddAttribute.data = data;
+    }
+
+    
+    
     private void checkLink() {
-       /* if ( s.getAttributeCompt() > 1 )
+
+        //System.out.println(d.getData());
+        // Nombre d'elements dans un attribut (le premier)
+        //int nbrElement = ((ArrayList<String>)d.getElementOfAttribute(d.getData().keySet().iterator().next())).size();
+        
+        for ( int i = 0 ; i < 2 ; i++ )
         {
-            System.out.println(s.getAllElements());
-            Collection<ArrayList<String>> liste = s.getAllElements().values();
-            System.out.println(s.getAllElements().values());
-            Iterator i = liste.iterator();
-            for ( ; i.hasNext() ; )
+            ArrayList<String> line = data.getLine(i);
+            boolean correct = true;
+            for ( int j = 0 ; j+1 < data.getAttributeCount() ;j++)
             {
-                ArrayList<String> al = (ArrayList<String>) i.next();
-                System.out.println("test" +al);
-                System.out.println(g.edgeExistBetween("France", "65"));
+                if ( !(g.getSuccessors(line.get(j)).contains(line.get(j+1))))
+                    correct = false;
             }
-        }*/
+            System.out.println(line +" est " +correct);
+                
+        }
+       
     }
 }

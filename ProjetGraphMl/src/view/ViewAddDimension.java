@@ -9,23 +9,25 @@ import bdd.Bdd;
 import graph.MatchGraph;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import listeners.ListenerBoutonOkPrincipal;
 
 /**
  *
  * @author Thomas
  */
-public class AddSeveralAttribute extends javax.swing.JPanel {
+public class ViewAddDimension extends javax.swing.JPanel {
 
-    private static ArrayList<AddAttribute> listOfAttribute;
+    private static ArrayList<ViewAddAttribute> listOfAttribute;
     /**
      * Creates new form AddSeveralAttribute
      */
-    public AddSeveralAttribute() {
-        listOfAttribute = new ArrayList<AddAttribute>();
+    public ViewAddDimension() {
+        listOfAttribute = new ArrayList<ViewAddAttribute>();
         initComponents();
-        
+        jButton1.addActionListener(new ListenerBoutonOkPrincipal(this));
 
         
     }
@@ -79,7 +81,12 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jPanel1);
 
         jTextFieldTableName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextFieldTableName.setText(" ");
+        jTextFieldTableName.setText("table_name");
+        jTextFieldTableName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTableNameActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Table name :");
@@ -135,19 +142,24 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        listOfAttribute.add(new AddAttribute());
+        listOfAttribute.add(new ViewAddAttribute());
         jPanel1.add(listOfAttribute.get(listOfAttribute.size()-1));
         jPanel1.revalidate();
         System.out.println("Action : + ");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Bdd.createTable(getTableName(), getAllElements());
+
+     
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextFieldTableNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTableNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTableNameActionPerformed
 
     static public void majTree()
     {
@@ -158,18 +170,7 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
         }*/
     }
     
-    public HashMap<String,ArrayList<String>> getAllElements()
-    {
-        HashMap<String,ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
-        
-        
-        for ( AddAttribute attribute : listOfAttribute)
-        {
-            map.put(attribute.getNameAttribute(), attribute.getListOfElement());
-        }
-
-        return map;
-    }
+    
     
     public String getTableName()
     {
@@ -179,6 +180,11 @@ public class AddSeveralAttribute extends javax.swing.JPanel {
     public int getAttributeCompt()
     {
         return listOfAttribute.size();
+    }
+    
+    public ArrayList<ViewAddAttribute> getListOfAttribute()
+    {
+        return listOfAttribute;
     }
     
     
