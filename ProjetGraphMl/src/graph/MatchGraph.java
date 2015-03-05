@@ -16,6 +16,8 @@ import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
 import edu.uci.ics.jung.visualization.VisualizationModel;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.VisualizationViewer.GraphMouse;
+import edu.uci.ics.jung.visualization.control.AbstractModalGraphMouse;
+import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.EditingModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.GraphMouseListener;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
@@ -153,12 +155,15 @@ public class MatchGraph extends JApplet {
         
 //        final EditingModalGraphMouse<String, String> graphMouse
 //                = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
-        final EditingModalGraphMouse<String, String> graphMouse
-                = new MyModelGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
+//        final EditingModalGraphMouse<String, String> graphMouse
+//                = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
+        AbstractModalGraphMouse graphMouse = new DefaultModalGraphMouse<String, String>();
 
-         vv.setGraphMouse(graphMouse);
+        graphMouse.add(new MyModelGraphMouse());
+        vv.setGraphMouse(graphMouse);
+        
 
-        vv.addMouseListener(new MouseListenerPerso());
+        //vv.addMouseListener(new MouseListenerPerso());
         
         final Container content = getContentPane();
         GraphZoomScrollPane gzsp = new GraphZoomScrollPane(vv);

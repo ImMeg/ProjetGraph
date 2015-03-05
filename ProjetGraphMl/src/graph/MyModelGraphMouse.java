@@ -5,27 +5,57 @@
  */
 package graph;
 
-import edu.uci.ics.jung.visualization.RenderContext;
+import edu.uci.ics.jung.algorithms.layout.GraphElementAccessor;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
-import edu.uci.ics.jung.visualization.control.EditingGraphMousePlugin;
-import edu.uci.ics.jung.visualization.control.EditingModalGraphMouse;
+import edu.uci.ics.jung.visualization.control.AbstractPopupGraphMousePlugin;
 import java.awt.PopupMenu;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
-import org.apache.commons.collections15.Factory;
+import java.awt.event.MouseListener;
+import java.awt.geom.Point2D;
+import javax.swing.AbstractAction;
+import javax.swing.JPopupMenu;
+import view.PopupAddDimension;
 
 /**
  *
  * @author loicleger
  */
-public class MyModelGraphMouse extends EditingModalGraphMouse<String, String>{
+public class MyModelGraphMouse<V,E> extends AbstractPopupGraphMousePlugin implements MouseListener{
 
-    public MyModelGraphMouse(RenderContext<String,String> r,Factory<String> vertexFactory, Factory<String> edgeFactory) {
-        super(r,vertexFactory, edgeFactory);
+    public MyModelGraphMouse() {
+        this(MouseEvent.BUTTON3_MASK);
+    }
+    public MyModelGraphMouse(int modifiers) {
+        super(modifiers);
     }
     
-    protected void handlePopUp(MouseEvent e) {
-        final VisualizationViewer vv =
-        (VisualizationViewer)e.getSource();
-        vv.add(new PopupMenu("Salut"));
+    /**
+     * If this event is over a station (vertex), pop up a menu to
+     * allow the user to perform a few actions; else, pop up a menu over the layout/canvas
+     *
+     * @param e
+     * 
+     */
+    @Override
+    protected void handlePopup(MouseEvent e) {
+        final VisualizationViewer<Integer,Number> vv = (VisualizationViewer<Integer,Number>)e.getSource();
+        Point2D p = e.getPoint();
+
+        //vv.getRenderContext().getBasicTransformer().inverseViewTransform(e.getPoint());
+
+        GraphElementAccessor<Integer,Number> pickSupport = vv.getPickSupport();
+        if(pickSupport != null) {
+            final Integer v = pickSupport.getVertex(vv.getGraphLayout(), p.getX(), p.getY());
+            JPopupMenu popup = new JPopupMenu();
+
+            popup.add(new AbstractAction("Add Dimension") {
+                public void actionPerformed(ActionEvent e) {
+                    new PopupAddDimension().setVisible(true);
+                }
+            });
+            popup.show(vv, e.getX(), e.getY());
+        }
     }
 }
+        
