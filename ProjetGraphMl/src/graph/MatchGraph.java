@@ -151,8 +151,10 @@ public class MatchGraph extends JApplet {
         });
         
         
+//        final EditingModalGraphMouse<String, String> graphMouse
+//                = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
         final EditingModalGraphMouse<String, String> graphMouse
-                = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
+                = new MyModelGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
 
          vv.setGraphMouse(graphMouse);
 
@@ -165,6 +167,8 @@ public class MatchGraph extends JApplet {
         JComboBox modeBox = graphMouse.getModeComboBox();
         modeBox.addItemListener(graphMouse.getModeListener());
         graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
+        
+        
         
         
     }
