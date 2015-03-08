@@ -54,6 +54,10 @@ public class DataStructure <Type>
         attributs.get(attribute).add(s);
     }
     
+    public void addElementToAttribute (int attributeNumber, Type s)
+    {
+        attributs.get(getAttributeName(attributeNumber)).add(s);
+    }
     
     public ArrayList<Type> getLine ( int number )
     {
@@ -68,15 +72,7 @@ public class DataStructure <Type>
                 line.add(null);
         }
         
-        // La liste est inversé ici, on doit la retourner (OU PAS)
-       /* ArrayList<String> temp = new ArrayList<>();
-        for ( int i = line.size()-1 ; i >= 0 ;i--)
-        {
-            temp.add(line.get(i));
-        }
-                
-        return temp;*/
-        System.out.println(line);
+        //System.out.println(line);
         return line;
     }
     
@@ -112,8 +108,68 @@ public class DataStructure <Type>
     
     public int getAttributeCount()
     {
-        System.out.println("Il y a actuellement" + attributs.size() +"Attributes");
+        //System.out.println("Il y a actuellement" + attributs.size() +"Attributes");
         return attributs.size();
     }
     
+    public String getNextAttribute (String actual )
+    {
+        boolean found = false;
+        for ( String s : attributs.keySet())
+        {
+            if ( found )
+                return s;
+                
+            if (s.equals(actual))
+                found = true;
+        }
+        
+        return null;
+    }
+    
+    public String getAttributeName ( int attributeNumber )
+    {
+        int i = 0;
+        for ( String s : attributs.keySet())
+        {     
+            if (i == attributeNumber)
+                return s;
+            
+            i++;
+        }
+        
+        return null;
+    }
+    
+    public int getAttributeIndex ( String name )
+    {
+        int i = 0;
+        for ( String s : attributs.keySet())
+        {     
+            if (s.equals(name))
+                return i;
+            i++;
+        }
+        return -1;
+    }
+    
+    public boolean nextAttributeContainsElement (String actual, Type t )
+    {
+        return ( attributeContains(getNextAttribute(actual),t) );
+    }
+    
+    public boolean nextAttributeContainsElement ( int attributeNumber, Type t )
+    {
+        return ( attributeContains(getAttributeName(attributeNumber+1),t) );
+    }
+    
+    public int getNumberOfElementInAttribute ( String attribute )
+    {
+        return attributs.get(attribute).size();
+    }
+    
+    public int getNumberOfElementInAttribute ( int number )
+    {
+        return attributs.get(getAttributeName(number)).size();
+    }
 }

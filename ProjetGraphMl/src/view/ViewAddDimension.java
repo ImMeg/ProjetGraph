@@ -142,9 +142,19 @@ public class ViewAddDimension extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        listOfAttribute.add(new ViewAddAttribute());
-        jPanel1.add(listOfAttribute.get(listOfAttribute.size()-1));
-        jPanel1.revalidate();
+        String nom = JOptionPane.showInputDialog(
+                null,
+                "Set new attribute name", "New Attribute",
+                JOptionPane.QUESTION_MESSAGE
+        );
+        
+        if ( !nom.isEmpty())
+        {
+            ViewAddAttribute nouveau = new ViewAddAttribute(nom);
+            listOfAttribute.add(nouveau);
+            jPanel1.add(nouveau);
+            jPanel1.revalidate();
+        }
         System.out.println("Action : + ");
     }//GEN-LAST:event_jButton3ActionPerformed
 

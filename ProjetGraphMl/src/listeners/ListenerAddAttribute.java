@@ -43,7 +43,6 @@ public class ListenerAddAttribute implements ActionListener
             JOptionPane.showMessageDialog(null, "Please name the attribute before adding elements", "Information", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        System.out.println("Jesuislelistenner");
         
         if (!data.attributeExist(a.getNameAttribute()))
             data.addAttribute(a.getNameAttribute());
@@ -54,7 +53,7 @@ public class ListenerAddAttribute implements ActionListener
              it = objects.next();
              data.addElementToAttribute(a.getNameAttribute(), it);
         }
-        a.addElementToJPanel(data.getElementOfAttribute(a.getNameAttribute()));
+        a.addElementToJPanel(g.getSelectedVertex());
         g.matcherGraph();
         checkLink();
     }
@@ -76,23 +75,28 @@ public class ListenerAddAttribute implements ActionListener
     
     
     private void checkLink() {
-
-        //System.out.println(d.getData());
-        // Nombre d'elements dans un attribut (le premier)
-        //int nbrElement = ((ArrayList<String>)d.getElementOfAttribute(d.getData().keySet().iterator().next())).size();
         
-        for ( int i = 0 ; i < 2 ; i++ )
+        DataStructure<String> d = new DataStructure<>();
+        for ( int i = 0 ; i < data.getAttributeCount() ; i++ )
+             d.addAttribute(data.getAttributeName(i));
+        
+         
+        int cpt = 0;
+        for ( int i = 0 ; i < data.getNumberOfElementInAttribute(0) ; i++ )
         {
-            ArrayList<String> line = data.getLine(i);
-            boolean correct = true;
-            for ( int j = 0 ; j+1 < data.getAttributeCount() ;j++)
+            for ( String s : g.getSuccessors(data.getLine(i).get(0)))
             {
-                if ( !(g.getSuccessors(line.get(j)).contains(line.get(j+1))))
-                    correct = false;
+                if ( data.nextAttributeContainsElement(0, s))
+                {
+                    ArrayList<String> list = new ArrayList<>();
+                    list.add(data.getLine(i).get(0));
+                    list.add(s);
+                    d.addLine(cpt,list );
+                }
             }
-            System.out.println(line +" est " +correct);
-                
         }
+        
+        System.out.println("Table ordonné :" +d.getData());
        
     }
 }

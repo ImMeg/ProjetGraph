@@ -38,6 +38,14 @@ public class ViewAddAttribute extends javax.swing.JPanel {
     }*/
     
     
+    public ViewAddAttribute (String nom)
+    {
+        initComponents();
+        jTextField1.setText(nom);
+        listOfCheckBox = new ArrayList<>();
+        jButton1.addActionListener(new ListenerAddAttribute(this));
+    }
+    
     public ViewAddAttribute ()
     {
         initComponents();
@@ -66,6 +74,7 @@ public class ViewAddAttribute extends javax.swing.JPanel {
 
         jLabel2.setText("Attribute name :");
 
+        jTextField1.setEnabled(false);
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField1KeyPressed(evt);
@@ -128,6 +137,20 @@ public class ViewAddAttribute extends javax.swing.JPanel {
     {
         
       
+        for ( String s : selectedVertex )
+        {
+            JCheckBox check = new JCheckBox(s);
+            check.setSelected(true);
+            jPanel1.add(check);
+            listOfCheckBox.add(check);
+
+        }
+
+        jPanel1.revalidate();
+    }
+    
+    public void addElementToJPanel (HashSet<String> selectedVertex )
+    {
         for ( String s : selectedVertex )
         {
             JCheckBox check = new JCheckBox(s);

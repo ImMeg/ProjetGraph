@@ -20,8 +20,8 @@ public class Lanceur
         MatchGraph mg = new MatchGraph();
         ViewGraph g = new ViewGraph(mg);
         g.setVisible(true);
-        ViewAdd a = new ViewAdd();
-        a.setVisible(true);
+        /*ViewAdd a = new ViewAdd();
+        a.setVisible(true);*/
         
         ListenerAddAttribute.setMatchGraph(mg);
         DataStructure<String> data = new DataStructure<>();

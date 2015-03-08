@@ -16,6 +16,7 @@ import java.awt.geom.Point2D;
 import javax.swing.AbstractAction;
 import javax.swing.JPopupMenu;
 import view.PopupAddDimension;
+import view.ViewAdd;
 
 /**
  *
@@ -51,11 +52,13 @@ public class MyModelGraphMouse<V,E> extends AbstractPopupGraphMousePlugin implem
 
             popup.add(new AbstractAction("Add Dimension") {
                 public void actionPerformed(ActionEvent e) {
-                    new PopupAddDimension().setVisible(true);
+                    new ViewAdd().setVisible(true);
                 }
             });
             popup.show(vv, e.getX(), e.getY());
         }
     }
+    
+    /* BUG si on clic droit sur les vertices */
 }
         
