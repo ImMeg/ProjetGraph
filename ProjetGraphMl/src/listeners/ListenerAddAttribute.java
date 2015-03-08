@@ -54,7 +54,7 @@ public class ListenerAddAttribute implements ActionListener
              data.addElementToAttribute(a.getNameAttribute(), it);
         }
         a.addElementToJPanel(g.getSelectedVertex());
-        g.matcherGraph();
+        g.matcherGraph(data.getElementOfAttribute(a.getNameAttribute()));
         checkLink();
     }
     
