@@ -136,6 +136,6 @@ public class ListenerAddAttribute implements ActionListener
             }
         } 
         System.out.println("Table ordonné :" +d.getData());
-       
+       ListenerBoutonOkPrincipal.setDataStructure(d);
     }
 }

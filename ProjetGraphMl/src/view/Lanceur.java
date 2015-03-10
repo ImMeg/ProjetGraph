@@ -25,28 +25,31 @@ import org.xml.sax.SAXException;
  */
 public class Lanceur
 {
+    static MatchGraph mg;
+    public DataStructure<ComplexVertex> data;
+    static ViewGraph g = new ViewGraph();
+    
+    public static void setMatchGraph( MatchGraph mg)
+    {
+        Lanceur.mg = mg;
+        ListenerAddAttribute.setMatchGraph(mg);
+        g.setMg(Lanceur.mg);
+    }
+    
     public static void main(String args[])
     {
-        JFrame frameLance = new JFrame();
         
-        JFileChooser fc = new JFileChooser();
-        int returnVal=fc.showOpenDialog(frameLance);
-        File filetoCharge;
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            filetoCharge = fc.getSelectedFile().getAbsoluteFile();
-            MatchGraph mg = new MatchGraph(filetoCharge);
-            ViewGraph g = new ViewGraph(mg);
+            
+           
             g.setVisible(true);
-            ViewAdd a = new ViewAdd();
-            a.setVisible(true);
-            ListenerAddAttribute.setMatchGraph(mg);
+            
+            //ListenerAddAttribute.setMatchGraph(mg);
             DataStructure<ComplexVertex> data = new DataStructure<>();
+
             ListenerAddAttribute.setDataStructure(data);
             ListenerBoutonOkPrincipal.setDataStructure(data);
-        }
-       else {
             
-        }
+
         
 //        
         

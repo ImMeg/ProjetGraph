@@ -6,6 +6,9 @@
 package view;
 
 import graph.MatchGraph;
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 
 
@@ -20,16 +23,18 @@ public class ViewGraph extends javax.swing.JFrame {
     public ViewGraph(MatchGraph m) {
         mg = m;
         this.initComponents();
-        
-        /*jInternalFrame1.setContentPane(mg);
-        jInternalFrame1.setVisible(true);*/
-        //jPanel2.add(new AddSeveralAttribute());
-        
         this.setContentPane(mg);
-        
-        
     }
 
+    public ViewGraph() {
+        this.initComponents();
+    }
+
+    public void setMg(MatchGraph mg) {
+        this.mg = mg;
+        this.setContentPane(mg);
+    }
+    
     
     
     /*static public Object[] getSelectedObjects()
@@ -54,13 +59,46 @@ public class ViewGraph extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Graph");
         setPreferredSize(new java.awt.Dimension(700, 700));
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
+        jMenu1.setText("File");
+
+        jMenuItem1.setText("Open File");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        //JFrame frameLance = new JFrame();
+        
+        JFileChooser fc = new JFileChooser();
+        int returnVal=fc.showOpenDialog(this);
+        File filetoCharge;
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            filetoCharge = fc.getSelectedFile().getAbsoluteFile();
+            MatchGraph mg = new MatchGraph(filetoCharge);
+            Lanceur.setMatchGraph(mg);
+        }
+        
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -99,6 +137,9 @@ public class ViewGraph extends javax.swing.JFrame {
     }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 
 }
