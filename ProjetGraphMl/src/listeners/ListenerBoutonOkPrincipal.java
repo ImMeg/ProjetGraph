@@ -6,6 +6,7 @@
 package listeners;
 
 import bdd.Bdd;
+import graph.ComplexVertex;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -19,7 +20,7 @@ import view.ViewAddDimension;
  */
 public class ListenerBoutonOkPrincipal implements ActionListener {
 
-    static DataStructure<String> ds;
+    static DataStructure<ComplexVertex> ds;
     ViewAddDimension vad;
     
     public ListenerBoutonOkPrincipal(ViewAddDimension v)
@@ -27,7 +28,7 @@ public class ListenerBoutonOkPrincipal implements ActionListener {
         vad = v;
     }
     
-    static public void setDataStructure(DataStructure<String> d)
+    static public void setDataStructure(DataStructure<ComplexVertex> d)
     {
         ds = d;
     }

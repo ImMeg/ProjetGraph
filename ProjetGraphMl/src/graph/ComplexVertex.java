@@ -22,7 +22,7 @@ public class ComplexVertex extends DirectedSparseMultigraph implements Comparabl
     private Color _mColor;
     private Shape _shape;
     private int numGraphSrc;
-	private ComplexVertex predecessor; 
+    private ComplexVertex predecessor; 
 
 	
 

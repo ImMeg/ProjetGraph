@@ -7,6 +7,7 @@ package view;
 
 import listeners.ListenerAddAttribute;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
+import graph.ComplexVertex;
 import graph.MatchGraph;
 import java.awt.GridLayout;
 import java.awt.ItemSelectable;
@@ -124,13 +125,13 @@ public class ViewAddAttribute extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1KeyPressed
     
     
-    public void addElementToJPanel(ArrayList<String> selectedVertex)
+    public void addElementToJPanel(ArrayList<ComplexVertex> selectedVertex)
     {
         
       
-        for ( String s : selectedVertex )
+        for ( ComplexVertex c : selectedVertex )
         {
-            JCheckBox check = new JCheckBox(s);
+            JCheckBox check = new JCheckBox(c.toString());
             check.setSelected(true);
             jPanel1.add(check);
             listOfCheckBox.add(check);

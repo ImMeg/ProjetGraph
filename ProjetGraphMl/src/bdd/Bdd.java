@@ -5,6 +5,7 @@
  */
 package bdd;
 
+import graph.ComplexVertex;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -26,7 +27,7 @@ import java.util.logging.Logger;
  */
 public class Bdd {
     
-    public static void createTable(String tableName,Map<String,ArrayList<String>> attributes) {
+    public static void createTable(String tableName,Map<String,ArrayList<ComplexVertex>> attributes) {
         FileWriter fw = null;
         try {
             String nomFichier = tableName+".sql";
@@ -47,10 +48,10 @@ public class Bdd {
                 else 
                     requete += ",\n ";
             }
-            Collection<ArrayList<String>> values =  attributes.values();
-            Iterator<ArrayList<String>> it = values.iterator();
-            ArrayList<ArrayList<String>> mesValues = new ArrayList<ArrayList<String>>();
-            ArrayList<String> temp;
+            Collection<ArrayList<ComplexVertex>> values =  attributes.values();
+            Iterator<ArrayList<ComplexVertex>> it = values.iterator();
+            ArrayList<ArrayList<ComplexVertex>> mesValues = new ArrayList<ArrayList<ComplexVertex>>();
+            ArrayList<ComplexVertex> temp;
             int k=0;
             for(;it.hasNext();) {
                 temp = it.next();
@@ -62,7 +63,7 @@ public class Bdd {
                 
                 requete += "INSERT INTO "+tableName+" VALUES (";
                 for(int j =0;j<mesValues.size();j++) {
-                    requete += mesValues.get(j).get(i);
+                    requete += mesValues.get(j).get(i).getDisplayValue();
                     if(j == (mesValues.size()-1))
                         requete += ")";
                      else
@@ -89,27 +90,6 @@ public class Bdd {
                 Logger.getLogger(Bdd.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }
-    
-    public static void main(String [] args) {
-        Map<String,ArrayList<String>> attr = new HashMap<String, ArrayList<String>>();
-        ArrayList<String> attributes1 = new ArrayList<>();
-        attributes1.add("Allemagne");
-        attributes1.add("Allemagne");
-        attributes1.add("France");
-        attributes1.add("France");
-        attributes1.add("Chine");
-        attributes1.add("Chine");
-        attr.put("Pays", attributes1);
-        ArrayList<String > attributes2 = new ArrayList<>();
-        attributes2.add("Munich");
-        attributes2.add("Berlin");
-        attributes2.add("Paris");
-        attributes2.add("Toulouse");
-        attributes2.add("Pekin");
-        attributes2.add("Shangai");
-        attr.put("Ville", attributes2);
-        Bdd.createTable("COUNTRY",attr);
     }
     
 }

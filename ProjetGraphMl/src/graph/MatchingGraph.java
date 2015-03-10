@@ -107,7 +107,7 @@ public class MatchingGraph extends JApplet {
             + "<p>between picking and transforming mode.</html>";
 
     // Graph graph;
-    private static DirectedGraph<String, String> graph = new DirectedSparseMultigraph<String, String>();
+    private static DirectedGraph<ComplexVertex, String> graph = new DirectedSparseMultigraph<ComplexVertex, String>();
     static HashMap<Integer, Collection<ComplexVertex>> verticesSets = new HashMap<>();
     static HashMap<Integer, HashMap<Integer, ComplexVertex>> verticesPredecessorsSets = new HashMap<>();
 
@@ -124,7 +124,7 @@ public class MatchingGraph extends JApplet {
 
     GraphCollapser collapser;
 
-    Factory<String> vertexFactory = new VertexFactory();
+    Factory<ComplexVertex> vertexFactory = new VertexFactory();
     Factory<String> edgeFactory = new EdgeFactory();
 
     public MatchingGraph() {
@@ -132,20 +132,6 @@ public class MatchingGraph extends JApplet {
         // create a simple graph for the demo
         // graph = TestGraphs.getOneComponentGraph();
         //DirectedGraph<String, String> graphOfFile = new DirectedSparseMultigraph<String, String>();
-            graph.addVertex("YEAR");
-            graph.addVertex("2010");
-            graph.addVertex("2011");
-            graph.addVertex("2012");
-            graph.addEdge("edge1", "YEAR", "2010");
-            graph.addEdge("edge2", "YEAR", "2011");
-            graph.addEdge("edge3", "YEAR", "2012");
-            graph.addVertex("COUNTRY");
-            graph.addVertex("Allemagne");
-            graph.addVertex("Chine");
-            graph.addVertex("France");
-            graph.addEdge("edge4", "COUNTRY", "Allemagne");
-            graph.addEdge("edge5", "COUNTRY", "Chine");
-            graph.addEdge("edge6", "COUNTRY", "France");
             
             
         collapsedGraph = graph;
@@ -202,8 +188,8 @@ public class MatchingGraph extends JApplet {
          * the regular graph mouse for the normal view
          */
  //       final DefaultModalGraphMouse graphMouse = new DefaultModalGraphMouse();
-        final EditingModalGraphMouse<String, String> graphMouse
-                = new EditingModalGraphMouse<String, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
+        final EditingModalGraphMouse<ComplexVertex, String> graphMouse
+                = new EditingModalGraphMouse<ComplexVertex, String>(vv.getRenderContext(), vertexFactory, edgeFactory);
 //
        vv.setGraphMouse(graphMouse);
 
@@ -483,119 +469,80 @@ public class MatchingGraph extends JApplet {
         return layouts.toArray(new Class[0]);
     }
 
-    public void openGraphML(File[] fileList) throws ParserConfigurationException, SAXException, IOException {
+    public void openGraphML(File file) throws ParserConfigurationException, SAXException, IOException {
 
-        Color[] colors = new Color[fileList.length];
+        Color color;
         Random rand = new Random();
         float r, g, b;
-        for (int j = 0; j <= colors.length - 1; j++) {
-            r = rand.nextFloat();
-            g = rand.nextFloat();
-            b = rand.nextFloat();
-            colors[j] = new Color(r, g, b);
-        }
+        r = rand.nextFloat();
+        g = rand.nextFloat();
+        b = rand.nextFloat();
+         color = new Color(r, g, b);
         int nombreVertex = 0;
 
-        //GraphObject[] inputGraphs = new GraphObject[fileList.length];
-        //GraphObject go;
-        //for (int i = 0; i <= fileList.length - 1; i++) {
-            // ce graphe je le crée pour qu il prenne uniquement les vertx structurelle 
-//            GraphMLReader<DirectedGraph<ComplexVertex, String>, ComplexVertex, String> graphMLReader
-//                    = new GraphMLReader<>(vertexFactory, edgeFactory);
-//            DirectedGraph<ComplexVertex, String> graphTmp = new DirectedSparseMultigraph<ComplexVertex, String>();
-//            graphMLReader.load(fileList[i].getPath(), graphTmp);
-//            Collection<ComplexVertex> graphCrtVerticesSet = new HashSet<ComplexVertex>();
-//            HashMap<Integer, ComplexVertex> graphVerticePredecessors = new HashMap<>();
-//            Map<String, GraphMLMetadata<ComplexVertex>> vertex_data = graphMLReader.getVertexMetadata(); //Our vertex Metadata is stored in a map.
-//            int orderInsertionVertex = 0;
-//            Object[] tabVertex = graphTmp.getVertices().toArray();
-//            Iterator itIdVertices = graphMLReader.getVertexIDs().values().iterator();
-//            ComplexVertex cv;
-//            String idVertex;
-//
-//            for (int j = 0; j < tabVertex.length; j++) {
-//                cv = (ComplexVertex) tabVertex[j];
-//                idVertex = (String) itIdVertices.next();
-////				System.out.println(vertex_data.get("DisplayedValue").transformer.transform(cv));
-//                if (vertex_data.get("Visualized").transformer.transform(cv).equals("true")) {
-//                    // We get the display_value <data key="DisplayedValue">display_value</data>
-//                    cv.set_ID(idVertex);
-//                    cv.setDisplayValue(vertex_data.get("DisplayedValue").transformer.transform(cv));
-//                    cv.setFileName(vertex_data.get("idSrcOrigin").transformer.transform(cv));
-//                    cv.setNumGraphSrc(i);
-//                    cv.setColor(colors[i]);
-//                    graph.addVertex(cv);
-//                    graphOfFile.addVertex(cv);
-//                    nombreVertex++;
-//                }
-//            }
-//
-//            Object[] tabVertexNew = graphOfFile.getVertices().toArray();
-//
-//            // imen : je dois remettre ca non commente  
-//            //Arrays.sort(tabVertex);	
-//            ComplexVertex pred;
-//            Iterator it1;
-//
-//            for (int j = 0; j < tabVertex.length; j++) {
-//                cv = (ComplexVertex) tabVertex[j];
-//                // verifier si ce vertex existe dans le graph de structure courant 
-//                if (searchVertexInTable(cv, tabVertexNew)) {
-//
-//                    graphCrtVerticesSet.add(cv);
-//                    Collection<ComplexVertex> predecessors = graphTmp.getPredecessors(cv);
-////                    Dans cette collection on ajoute les predecesssurs de chaque vertex dans le meme ordre que de l ajout du vertex
-//                    pred = null;
-//                    it1 = predecessors.iterator();
-//                    while (it1.hasNext()) {
-//                        pred = (ComplexVertex) it1.next();
-//                    }
-//                    // je pense ici j avais prevu que chaque noeud a un seul predecesseur puisque l histoire des hierarchies stricte en phase 1 donc
-//                    // je n ai garde que le dernier pred
-//                    if (pred != null) {
-//                        cv.setPredecessor(pred);
-//                        graphVerticePredecessors.put(j, pred);
-//                    }
-//                }
-//            }
-//
-//            //go = new GraphObject(graphTmp, graphTmp.getVertexCount(), graphCrtVerticesSet, graphVerticePredecessors);
+        //ce graphe je le crée pour qu il prenne uniquement les vertx structurelle 
+       GraphMLReader<DirectedGraph<ComplexVertex, String>, ComplexVertex, String> graphMLReader
+               = new GraphMLReader<>(vertexFactory, edgeFactory);
+       DirectedGraph<ComplexVertex, String> graphTmp = new DirectedSparseMultigraph<ComplexVertex, String>();
+       graphMLReader.load(file.getPath(), graphTmp);
+       HashMap<Integer, ComplexVertex> graphVerticePredecessors = new HashMap<>();
+       Map<String, GraphMLMetadata<ComplexVertex>> vertex_data = graphMLReader.getVertexMetadata(); //Our vertex Metadata is stored in a map.
+       int orderInsertionVertex = 0;
+       Object[] tabVertex = graphTmp.getVertices().toArray();
+       Iterator itIdVertices = graphMLReader.getVertexIDs().values().iterator();
+       ComplexVertex cv;
+       String idVertex;
+
+        for (int j = 0; j < tabVertex.length; j++) {
+            cv = (ComplexVertex) tabVertex[j];
+            idVertex = (String) itIdVertices.next();
+//				System.out.println(vertex_data.get("DisplayedValue").transformer.transform(cv));
+            if (vertex_data.get("Visualized").transformer.transform(cv).equals("true")) {
+                // We get the display_value <data key="DisplayedValue">display_value</data>
+                cv.set_ID(idVertex);
+                cv.setDisplayValue(vertex_data.get("DisplayedValue").transformer.transform(cv));
+                cv.setFileName(vertex_data.get("idSrcOrigin").transformer.transform(cv));
+                cv.setColor(color);
+                graph.addVertex(cv);
+                //graphOfFile.addVertex(cv);
+                nombreVertex++;
+                
+            }
+        }
+
+            //Object[] tabVertexNew = graphOfFile.getVertices().toArray();
+
+            // imen : je dois remettre ca non commente  
+            //Arrays.sort(tabVertex);	
+            ComplexVertex pred;
+            Iterator it1;
+
+     
+
+            //go = new GraphObject(graphTmp, graphTmp.getVertexCount(), graphCrtVerticesSet, graphVerticePredecessors);
 //            go = new GraphObject(graphOfFile, graphOfFile.getVertexCount(), graphCrtVerticesSet, graphVerticePredecessors);
 //            inputGraphs[i] = go;
-//            //inputGraphs[i] = go;
-//
-//            // Selects the edges from graphTmp related to the nodes existing in _graph
-//            Boolean source0k, destOk;
-//            for (String e : graphTmp.getEdges()) {
-//                source0k = false;
-//                destOk = false;
-//                for (ComplexVertex n : graph.getVertices()) {
-//                    if (n.equals(graphTmp.getSource(e))) {
-//                        source0k = true;
-//                    }
-//                    if (n.equals(graphTmp.getDest(e))) {
-//                        destOk = true;
-//                    }
-//                    if (source0k && destOk) {
-//                        graph.addEdge(e, graphTmp.getSource(e), graphTmp.getDest(e));
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//
-//        /**
-//         * * j ordonne ici les graphes ***
-//         */
-//        CollectionOfGraph cg = new CollectionOfGraph(inputGraphs);
-//        cg.sortDescSizeOfGraph();
-////       System.out.println(Arrays.toString(cg.getGraphs()));
-//        for (int i = 0; i < cg.getGraphs().length; i++) {
-//            verticesPredecessorsSets.put(i, cg.getGraphs()[i].getGraphVerticePredecessors());
-//            verticesSets.put(i, cg.getGraphs()[i].getVertices());
-//
-//        }
-//        System.out.println("***********le nombre de vertex est " + nombreVertex);
+            //inputGraphs[i] = go;
+
+            // Selects the edges from graphTmp related to the nodes existing in _graph
+            Boolean source0k, destOk;
+            for (String e : graphTmp.getEdges()) {
+                source0k = false;
+                destOk = false;
+                for (ComplexVertex n : graph.getVertices()) {
+                    if (n.equals(graphTmp.getSource(e))) {
+                        source0k = true;
+                    }
+                    if (n.equals(graphTmp.getDest(e))) {
+                        destOk = true;
+                    }
+                    if (source0k && destOk) {
+                        graph.addEdge(e, graphTmp.getSource(e), graphTmp.getDest(e));
+                        break;
+                    }
+                }
+            }
+        System.out.println("***********le nombre de vertex est " + nombreVertex);
     }
 
     public boolean searchVertexInTable(ComplexVertex vertex, Object[] tableOfVertex) {
@@ -610,14 +557,13 @@ public class MatchingGraph extends JApplet {
         return exist;
     }
 
-    class VertexFactory implements Factory<String> {
+    class VertexFactory implements Factory<ComplexVertex> {
 
         int i = 0;
 
-        public String create() {
+        public ComplexVertex create() {
             int j = i++;
-            return "V"+(j);
-            //return new ComplexVertex("" + j + "", true);
+            return new ComplexVertex("" + j + "", true);
         }
     }
 
@@ -634,7 +580,19 @@ public class MatchingGraph extends JApplet {
     public static void main(String[] args) {
         final JFrame f = new JFrame();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.getContentPane().add(new MatchingGraph());
+        MatchingGraph g = new MatchingGraph();
+        File file = new File("graphe.graphml");
+        try {
+            g.openGraphML(file);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(MatchingGraph.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(MatchingGraph.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MatchingGraph.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        f.getContentPane().add(g);
+        
         f.pack();
         f.setVisible(true);
     }

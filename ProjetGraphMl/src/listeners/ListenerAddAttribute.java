@@ -5,6 +5,7 @@
  */
 package listeners;
 
+import graph.ComplexVertex;
 import graph.MatchGraph;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +29,7 @@ public class ListenerAddAttribute implements ActionListener
     private ViewAddAttribute a;
     private static MatchGraph g;
     private static ViewAddDimension s;
-    private static DataStructure<String> data = new DataStructure<>();
+    private static DataStructure<ComplexVertex> data = new DataStructure<>();
     
     public ListenerAddAttribute(ViewAddAttribute b)
     {
@@ -48,9 +49,9 @@ public class ListenerAddAttribute implements ActionListener
         if (!data.attributeExist(a.getNameAttribute()))
             data.addAttribute(a.getNameAttribute());
         
-        Iterator<String> objects = g.getSelectedVertex().iterator();
+        Iterator<ComplexVertex> objects = g.getSelectedVertex().iterator();
 
-         for (String it =""; objects.hasNext() ;  ){
+         for (ComplexVertex it = null; objects.hasNext() ;  ){
              it = objects.next();
              data.addElementToAttribute(a.getNameAttribute(), it);
         }
@@ -69,7 +70,7 @@ public class ListenerAddAttribute implements ActionListener
         s = sa;
     }
 
-    public static void setDataStructure(DataStructure<String> data) {
+    public static void setDataStructure(DataStructure<ComplexVertex> data) {
         ListenerAddAttribute.data = data;
     }
 
@@ -83,7 +84,7 @@ public class ListenerAddAttribute implements ActionListener
         
         for ( int i = 0 ; i < 2 ; i++ )
         {
-            ArrayList<String> line = data.getLine(i);
+            ArrayList<ComplexVertex> line = data.getLine(i);
             boolean correct = true;
             for ( int j = 0 ; j+1 < data.getAttributeCount() ;j++)
             {
