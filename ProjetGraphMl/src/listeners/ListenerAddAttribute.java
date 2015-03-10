@@ -44,7 +44,6 @@ public class ListenerAddAttribute implements ActionListener
             JOptionPane.showMessageDialog(null, "Please name the attribute before adding elements", "Information", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        System.out.println("Jesuislelistenner");
         
         if (!data.attributeExist(a.getNameAttribute()))
             data.addAttribute(a.getNameAttribute());
@@ -55,8 +54,8 @@ public class ListenerAddAttribute implements ActionListener
              it = objects.next();
              data.addElementToAttribute(a.getNameAttribute(), it);
         }
-        a.addElementToJPanel(data.getElementOfAttribute(a.getNameAttribute()));
-        g.matcherGraph();
+        a.addElementToJPanel(g.getSelectedVertex());
+        //g.matcherGraph(data.getElementOfAttribute(a.getNameAttribute()));
         checkLink();
     }
     
@@ -77,23 +76,67 @@ public class ListenerAddAttribute implements ActionListener
     
     
     private void checkLink() {
-
-        //System.out.println(d.getData());
-        // Nombre d'elements dans un attribut (le premier)
-        //int nbrElement = ((ArrayList<String>)d.getElementOfAttribute(d.getData().keySet().iterator().next())).size();
         
-        for ( int i = 0 ; i < 2 ; i++ )
+        DataStructure<String> d = new DataStructure<>();
+        for ( int i = 0 ; i < data.getAttributeCount() ; i++ )
+             d.addAttribute(data.getAttributeName(i));
+        
+         
+        int cpt = 0;
+        boolean adder = false;
+        for ( int i = 0 ; i < data.getNumberOfElementInAttribute(0) ; i++ )
         {
             ArrayList<ComplexVertex> line = data.getLine(i);
             boolean correct = true;
             for ( int j = 0 ; j+1 < data.getAttributeCount() ;j++)
             {
-                if ( !(g.getSuccessors(line.get(j)).contains(line.get(j+1))))
-                    correct = false;
+                if ( data.nextAttributeContainsElement(0, s))
+                {
+                    ArrayList<String> list = new ArrayList<>();
+                    list.add(data.getLine(i).get(0));
+                    list.add(s);
+                    d.addLine(cpt,list );
+                    adder = true;
+                    cpt++;
+                }
             }
-            System.out.println(line +" est " +correct);
+            if ( !adder )
+            {
+                if ( data.getAttributeIndex(a.getNameAttribute()) == 0 )
+                {
+                    ArrayList<String> list = new ArrayList<>();
+                    list.add(data.getLine(i).get(0));
+                    list.add("null");
+                    d.addLine(cpt,list );
+                }
+                else
+                {
+                    ArrayList<String> list = new ArrayList<>();
+                    
+                    list.add("null");
+                    list.add(data.getLine(i).get(1));
+                    d.addLine(cpt,list );
+                }
                 
+            }
         }
+        
+        if ( data.getAttributeCount() > 1 )
+        {
+            
+            for ( String i : data.getElementOfAttribute(data.getAttributeName(1)))
+            {
+                if ( !(d.getElementOfAttribute(data.getAttributeName(1)).contains(i)))
+                {
+                    ArrayList<String> list = new ArrayList<>();
+
+                    list.add("null");
+                    list.add(i);
+                    d.addLine(cpt,list );
+                }
+            }
+        } 
+        System.out.println("Table ordonné :" +d.getData());
        
     }
 }

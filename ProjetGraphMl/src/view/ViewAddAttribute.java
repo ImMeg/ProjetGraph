@@ -39,6 +39,14 @@ public class ViewAddAttribute extends javax.swing.JPanel {
     }*/
     
     
+    public ViewAddAttribute (String nom)
+    {
+        initComponents();
+        jTextField1.setText(nom);
+        listOfCheckBox = new ArrayList<>();
+        jButton1.addActionListener(new ListenerAddAttribute(this));
+    }
+    
     public ViewAddAttribute ()
     {
         initComponents();
@@ -67,6 +75,7 @@ public class ViewAddAttribute extends javax.swing.JPanel {
 
         jLabel2.setText("Attribute name :");
 
+        jTextField1.setEnabled(false);
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField1KeyPressed(evt);
@@ -132,6 +141,45 @@ public class ViewAddAttribute extends javax.swing.JPanel {
         for ( ComplexVertex c : selectedVertex )
         {
             JCheckBox check = new JCheckBox(c.toString());
+            check.setSelected(true);
+            jPanel1.add(check);
+            listOfCheckBox.add(check);
+
+        }
+
+        jPanel1.revalidate();
+    }
+    
+    public void addElementToJPanel (HashSet<String> selectedVertex )
+    {
+        for ( String s : selectedVertex )
+        {
+            JCheckBox check = new JCheckBox(s);
+            check.setSelected(true);
+            jPanel1.add(check);
+            listOfCheckBox.add(check);
+
+        }
+
+        jPanel1.revalidate();
+    }
+    
+    public ArrayList<String> getElements ()
+    {
+        ArrayList<String> s = new ArrayList<>();
+        for ( JCheckBox ch : listOfCheckBox )
+        {
+            s.add(ch.getText());
+        }
+        return s;
+    }
+    
+    public void setElementToJPanel( ArrayList<String> selectedVertex )
+    {
+        jPanel1 = new JPanel();
+        for ( String s : selectedVertex )
+        {
+            JCheckBox check = new JCheckBox(s);
             check.setSelected(true);
             jPanel1.add(check);
             listOfCheckBox.add(check);

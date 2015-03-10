@@ -236,7 +236,30 @@ public class MatchGraph extends JApplet {
     } 
 
     
+    public void matcherGraph( ArrayList<String> picked ) {
 
+        GraphCollapser mycollapser = new GraphCollapser(graph);
+        Graph inGraph = layout.getGraph();
+        Graph clusterGraph = mycollapser.getClusterGraph(inGraph, picked);
+        Graph g = mycollapser.collapse(layout.getGraph(), clusterGraph);
+
+        double sumx = 0;
+        double sumy = 0;
+        // tu vois ce code récupère la position de tous les vertex comme étant des object donc il te suffit de lire les éléments de picked :) 
+        for (Object v : picked) {
+            System.out.println(v.toString());
+            Point2D p = (Point2D) layout.transform(v.toString());
+            sumx += p.getX();
+            sumy += p.getY();
+        }
+        Point2D cp = new Point2D.Double(sumx / picked.size(), sumy / picked.size());
+        vv.getRenderContext().getParallelEdgeIndexFunction().reset();
+        layout.setGraph(g);
+        layout.setLocation(clusterGraph, cp);
+        vv.getPickedVertexState().clear();
+        vv.repaint();
+               
+    } 
     
     
     
