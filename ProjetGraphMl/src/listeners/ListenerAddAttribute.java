@@ -74,8 +74,71 @@ public class ListenerAddAttribute implements ActionListener
     }
 
     
-    
     private void checkLink() {
+        
+        DataStructure<ComplexVertex> d = new DataStructure<>();
+        for ( int i = 0 ; i < data.getAttributeCount() ; i++ )
+             d.addAttribute(data.getAttributeName(i));
+        
+         
+        int cpt = 0;
+        boolean adder = false;
+        for ( int i = 0 ; i < data.getNumberOfElementInAttribute(0) ; i++ )
+        {
+            adder = false;
+            for ( ComplexVertex s : g.getSuccessors(data.getLine(i).get(0)))
+            {
+                if ( data.nextAttributeContainsElement(0, s))
+                {
+                    ArrayList<ComplexVertex> list = new ArrayList<>();
+                    list.add(data.getLine(i).get(0));
+                    list.add(s);
+                    d.addLine(cpt,list );
+                    adder = true;
+                    cpt++;
+                }
+            }
+            
+            if ( !adder )
+            {
+                if ( data.getAttributeIndex(a.getNameAttribute()) == 0 )
+                {
+                    ArrayList<ComplexVertex> list = new ArrayList<>();
+                    list.add(data.getLine(i).get(0));
+                    list.add("null");
+                    d.addLine(cpt,list );
+                }
+                else
+                {
+                    ArrayList<ComplexVertex> list = new ArrayList<>();
+                    
+                    list.add("null");
+                    list.add(data.getLine(i).get(1));
+                    d.addLine(cpt,list );
+                }
+                
+            }
+        }
+        
+        if ( data.getAttributeCount() > 1 )
+        {
+            
+            for ( String i : data.getElementOfAttribute(data.getAttributeName(1)))
+            {
+                if ( !(d.getElementOfAttribute(data.getAttributeName(1)).contains(i)))
+                {
+                    ArrayList<ComplexVertex> list = new ArrayList<>();
+
+                    list.add("null");
+                    list.add(i);
+                    d.addLine(cpt,list );
+                }
+            }
+        } 
+        System.out.println("Table ordonné :" +d.getData());
+       
+    }
+    private void checkLinkNul() {
         
         DataStructure<String> d = new DataStructure<>();
         for ( int i = 0 ; i < data.getAttributeCount() ; i++ )
@@ -100,6 +163,7 @@ public class ListenerAddAttribute implements ActionListener
                     cpt++;
                 }
             }
+            
             if ( !adder )
             {
                 if ( data.getAttributeIndex(a.getNameAttribute()) == 0 )
