@@ -55,7 +55,7 @@ public class ListenerAddAttribute implements ActionListener
              data.addElementToAttribute(a.getNameAttribute(), it);
         }
         a.addElementToJPanel(g.getSelectedVertex());
-        //g.matcherGraph(data.getElementOfAttribute(a.getNameAttribute()));
+        g.matcherGraph(data.getElementOfAttribute(a.getNameAttribute()));
         checkLink();
     }
     
@@ -90,11 +90,11 @@ public class ListenerAddAttribute implements ActionListener
             boolean correct = true;
             for ( int j = 0 ; j+1 < data.getAttributeCount() ;j++)
             {
-                if ( data.nextAttributeContainsElement(0, s))
+                if ( data.nextAttributeContainsElement(0, line.get(i)))
                 {
                     ArrayList<String> list = new ArrayList<>();
-                    list.add(data.getLine(i).get(0));
-                    list.add(s);
+                    list.add(data.getLine(i).get(0).toString());
+                    list.add("RegardeIci");
                     d.addLine(cpt,list );
                     adder = true;
                     cpt++;
@@ -105,7 +105,7 @@ public class ListenerAddAttribute implements ActionListener
                 if ( data.getAttributeIndex(a.getNameAttribute()) == 0 )
                 {
                     ArrayList<String> list = new ArrayList<>();
-                    list.add(data.getLine(i).get(0));
+                    list.add(data.getLine(i).get(0).toString());
                     list.add("null");
                     d.addLine(cpt,list );
                 }
@@ -114,7 +114,7 @@ public class ListenerAddAttribute implements ActionListener
                     ArrayList<String> list = new ArrayList<>();
                     
                     list.add("null");
-                    list.add(data.getLine(i).get(1));
+                    list.add(data.getLine(i).get(1).toString());
                     d.addLine(cpt,list );
                 }
                 
@@ -124,14 +124,14 @@ public class ListenerAddAttribute implements ActionListener
         if ( data.getAttributeCount() > 1 )
         {
             
-            for ( String i : data.getElementOfAttribute(data.getAttributeName(1)))
+            for ( ComplexVertex i : data.getElementOfAttribute(data.getAttributeName(1)))
             {
                 if ( !(d.getElementOfAttribute(data.getAttributeName(1)).contains(i)))
                 {
                     ArrayList<String> list = new ArrayList<>();
 
                     list.add("null");
-                    list.add(i);
+                    list.add(i.toString());
                     d.addLine(cpt,list );
                 }
             }
