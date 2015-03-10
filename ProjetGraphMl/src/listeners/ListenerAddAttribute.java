@@ -55,7 +55,7 @@ public class ListenerAddAttribute implements ActionListener
              data.addElementToAttribute(a.getNameAttribute(), it);
         }
         a.addElementToJPanel(g.getSelectedVertex());
-        g.matcherGraph(data.getElementOfAttribute(a.getNameAttribute()));
+        //g.matcherGraph(data.getElementOfAttribute(a.getNameAttribute()));
         checkLink();
     }
     
@@ -74,10 +74,9 @@ public class ListenerAddAttribute implements ActionListener
     }
 
     
-    
     private void checkLink() {
         
-        DataStructure<String> d = new DataStructure<>();
+        DataStructure<ComplexVertex> d = new DataStructure<>();
         for ( int i = 0 ; i < data.getAttributeCount() ; i++ )
              d.addAttribute(data.getAttributeName(i));
         
@@ -86,35 +85,35 @@ public class ListenerAddAttribute implements ActionListener
         boolean adder = false;
         for ( int i = 0 ; i < data.getNumberOfElementInAttribute(0) ; i++ )
         {
-            ArrayList<ComplexVertex> line = data.getLine(i);
-            boolean correct = true;
-            for ( int j = 0 ; j+1 < data.getAttributeCount() ;j++)
+            adder = false;
+            for ( ComplexVertex s : g.getSuccessors(data.getLine(i).get(0)))
             {
-                if ( data.nextAttributeContainsElement(0, line.get(i)))
+                if ( data.nextAttributeContainsElement(0, s))
                 {
-                    ArrayList<String> list = new ArrayList<>();
-                    list.add(data.getLine(i).get(0).toString());
-                    list.add("RegardeIci");
+                    ArrayList<ComplexVertex> list = new ArrayList<>();
+                    list.add(data.getLine(i).get(0));
+                    list.add(s);
                     d.addLine(cpt,list );
                     adder = true;
                     cpt++;
                 }
             }
+            
             if ( !adder )
             {
                 if ( data.getAttributeIndex(a.getNameAttribute()) == 0 )
                 {
-                    ArrayList<String> list = new ArrayList<>();
-                    list.add(data.getLine(i).get(0).toString());
-                    list.add("null");
+                    ArrayList<ComplexVertex> list = new ArrayList<>();
+                    list.add(data.getLine(i).get(0));
+                    list.add(null);
                     d.addLine(cpt,list );
                 }
                 else
                 {
-                    ArrayList<String> list = new ArrayList<>();
+                    ArrayList<ComplexVertex> list = new ArrayList<>();
                     
-                    list.add("null");
-                    list.add(data.getLine(i).get(1).toString());
+                    list.add(null);
+                    list.add(data.getLine(i).get(1));
                     d.addLine(cpt,list );
                 }
                 
@@ -128,10 +127,10 @@ public class ListenerAddAttribute implements ActionListener
             {
                 if ( !(d.getElementOfAttribute(data.getAttributeName(1)).contains(i)))
                 {
-                    ArrayList<String> list = new ArrayList<>();
+                    ArrayList<ComplexVertex> list = new ArrayList<>();
 
-                    list.add("null");
-                    list.add(i.toString());
+                    list.add(null);
+                    list.add(i);
                     d.addLine(cpt,list );
                 }
             }
