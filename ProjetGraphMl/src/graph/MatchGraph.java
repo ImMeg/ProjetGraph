@@ -254,25 +254,26 @@ public class MatchGraph extends JApplet {
 //        vv.getPickedVertexState().clear();
 //        System.out.println(layout.getGraph());
 //        vv.repaint();
-        
-        graph.addVertex("TOOO");
+        ComplexVertex c1 = new ComplexVertex("1","MATCH");
+        graph.addVertex(c1);
         for(ComplexVertex c : picked ) {
             //Gestion des predecesseur
             for (ComplexVertex pred : graph.getPredecessors(c)) {
                 if(!picked.contains(pred))                
-                     graph.addEdge(pred+"->"+title, pred, title);
-                 graph.removeEdge(graph.findEdge(pred, c));
+                    graph.addEdge(pred.toString()+"->"+"MATCH", pred,c1);
+                    graph.removeEdge(graph.findEdge(pred, c));
                 }
 
              //Gestion des successeurs
-            for (String succ : graph.getSuccessors(s)) {
+            for (ComplexVertex succ : graph.getSuccessors(c)) {
                 if(!picked.contains(succ))                
-                     graph.addEdge(title+"->"+succ, title, succ);
+                     graph.addEdge(c1.toString()+"->"+succ.toString(), c1, succ);
                  graph.removeEdge(graph.findEdge(c, succ));
                 }
             graph.removeVertex(c);
         }
-               
+        System.out.println(graph.toString());
+        vv.repaint();       
     } 
     
     
