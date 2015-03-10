@@ -172,4 +172,18 @@ public class DataStructure <Type>
     {
         return attributs.get(getAttributeName(number)).size();
     }
+
+    public int getMaxNumberOfElementInAttribute() {
+        int max = getNumberOfElementInAttribute(0);
+        
+        for ( int i = 1 ; i < getAttributeCount() ; i++ )
+        {
+            int temp = getNumberOfElementInAttribute(i);
+            if ( temp > max )
+                temp = max;
+        }
+        
+        return max;
+        
+    }
 }

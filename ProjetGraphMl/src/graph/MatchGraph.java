@@ -80,9 +80,11 @@ public class MatchGraph extends JApplet {
             graph.addVertex("2010");
             graph.addVertex("2011");
             graph.addVertex("2012");
+            graph.addVertex("2150");
             graph.addEdge("edge1", "YEAR", "2010");
             graph.addEdge("edge2", "YEAR", "2011");
             graph.addEdge("edge3", "YEAR", "2012");
+            graph.addEdge("edgeNouveau", "YEAR", "2150");
             graph.addVertex("COUNTRY");
             graph.addVertex("Allemagne");
             graph.addVertex("Chine");
@@ -94,6 +96,7 @@ public class MatchGraph extends JApplet {
             graph.addVertex("90");
             graph.addVertex("65");
             graph.addVertex("1300");
+            graph.addVertex("13000000");
             graph.addEdge("Q->90", "QUANTITY", "90");
             graph.addEdge("Fr->90", "Allemagne", "90");
             graph.addEdge("Q->65", "QUANTITY", "65");
@@ -103,6 +106,10 @@ public class MatchGraph extends JApplet {
             graph.addEdge("Fr->65", "France", "65");
             graph.addEdge("2012->90", "2012", "90");
             graph.addEdge("2012->1300", "2012", "1300");
+            
+            graph.addEdge("ajout3", "QUANTITY", "13000000");
+            graph.addEdge("ajout1", "2150", "13000000");
+            graph.addEdge("ajout2", "France", "13000000");
 
         Dimension preferredSize = new Dimension(500, 500);
         //layout = new StaticLayout(graph,preferredSize);

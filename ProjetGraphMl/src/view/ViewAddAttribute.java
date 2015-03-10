@@ -163,6 +163,31 @@ public class ViewAddAttribute extends javax.swing.JPanel {
         jPanel1.revalidate();
     }
     
+    public ArrayList<String> getElements ()
+    {
+        ArrayList<String> s = new ArrayList<>();
+        for ( JCheckBox ch : listOfCheckBox )
+        {
+            s.add(ch.getText());
+        }
+        return s;
+    }
+    
+    public void setElementToJPanel( ArrayList<String> selectedVertex )
+    {
+        jPanel1 = new JPanel();
+        for ( String s : selectedVertex )
+        {
+            JCheckBox check = new JCheckBox(s);
+            check.setSelected(true);
+            jPanel1.add(check);
+            listOfCheckBox.add(check);
+
+        }
+
+        jPanel1.revalidate();
+    }
+    
    
     
     public String getNameAttribute()
