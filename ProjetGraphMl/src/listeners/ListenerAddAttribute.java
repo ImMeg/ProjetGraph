@@ -105,14 +105,14 @@ public class ListenerAddAttribute implements ActionListener
                 {
                     ArrayList<ComplexVertex> list = new ArrayList<>();
                     list.add(data.getLine(i).get(0));
-                    list.add("null");
+                    list.add(null);
                     d.addLine(cpt,list );
                 }
                 else
                 {
                     ArrayList<ComplexVertex> list = new ArrayList<>();
                     
-                    list.add("null");
+                    list.add(null);
                     list.add(data.getLine(i).get(1));
                     d.addLine(cpt,list );
                 }
@@ -123,78 +123,13 @@ public class ListenerAddAttribute implements ActionListener
         if ( data.getAttributeCount() > 1 )
         {
             
-            for ( String i : data.getElementOfAttribute(data.getAttributeName(1)))
+            for ( ComplexVertex i : data.getElementOfAttribute(data.getAttributeName(1)))
             {
                 if ( !(d.getElementOfAttribute(data.getAttributeName(1)).contains(i)))
                 {
                     ArrayList<ComplexVertex> list = new ArrayList<>();
 
-                    list.add("null");
-                    list.add(i);
-                    d.addLine(cpt,list );
-                }
-            }
-        } 
-        System.out.println("Table ordonné :" +d.getData());
-       
-    }
-    private void checkLinkNul() {
-        
-        DataStructure<String> d = new DataStructure<>();
-        for ( int i = 0 ; i < data.getAttributeCount() ; i++ )
-             d.addAttribute(data.getAttributeName(i));
-        
-         
-        int cpt = 0;
-        boolean adder = false;
-        for ( int i = 0 ; i < data.getNumberOfElementInAttribute(0) ; i++ )
-        {
-            ArrayList<ComplexVertex> line = data.getLine(i);
-            boolean correct = true;
-            for ( int j = 0 ; j+1 < data.getAttributeCount() ;j++)
-            {
-                if ( data.nextAttributeContainsElement(0, s))
-                {
-                    ArrayList<String> list = new ArrayList<>();
-                    list.add(data.getLine(i).get(0));
-                    list.add(s);
-                    d.addLine(cpt,list );
-                    adder = true;
-                    cpt++;
-                }
-            }
-            
-            if ( !adder )
-            {
-                if ( data.getAttributeIndex(a.getNameAttribute()) == 0 )
-                {
-                    ArrayList<String> list = new ArrayList<>();
-                    list.add(data.getLine(i).get(0));
-                    list.add("null");
-                    d.addLine(cpt,list );
-                }
-                else
-                {
-                    ArrayList<String> list = new ArrayList<>();
-                    
-                    list.add("null");
-                    list.add(data.getLine(i).get(1));
-                    d.addLine(cpt,list );
-                }
-                
-            }
-        }
-        
-        if ( data.getAttributeCount() > 1 )
-        {
-            
-            for ( String i : data.getElementOfAttribute(data.getAttributeName(1)))
-            {
-                if ( !(d.getElementOfAttribute(data.getAttributeName(1)).contains(i)))
-                {
-                    ArrayList<String> list = new ArrayList<>();
-
-                    list.add("null");
+                    list.add(null);
                     list.add(i);
                     d.addLine(cpt,list );
                 }
