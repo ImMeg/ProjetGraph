@@ -150,11 +150,11 @@ public class ViewAddAttribute extends javax.swing.JPanel {
         jPanel1.revalidate();
     }
     
-    public void addElementToJPanel (HashSet<String> selectedVertex )
+    public void addElementToJPanel (HashSet<ComplexVertex> selectedVertex )
     {
-        for ( String s : selectedVertex )
+        for ( ComplexVertex c : selectedVertex )
         {
-            JCheckBox check = new JCheckBox(s);
+            JCheckBox check = new JCheckBox(c.toString());
             check.setSelected(true);
             jPanel1.add(check);
             listOfCheckBox.add(check);

@@ -34,17 +34,8 @@ public class Lanceur
         File filetoCharge;
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             filetoCharge = fc.getSelectedFile().getAbsoluteFile();
-            MatchGraph mg = new MatchGraph();
+            MatchGraph mg = new MatchGraph(filetoCharge);
             ViewGraph g = new ViewGraph(mg);
-            try {
-                mg.openGraphML(filetoCharge);
-            } catch (ParserConfigurationException ex) {
-                Logger.getLogger(Lanceur.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SAXException ex) {
-                Logger.getLogger(Lanceur.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Lanceur.class.getName()).log(Level.SEVERE, null, ex);
-            }
             g.setVisible(true);
             ViewAdd a = new ViewAdd();
             a.setVisible(true);

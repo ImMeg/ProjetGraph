@@ -56,6 +56,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JApplet;
 import javax.swing.JComboBox;
 import javax.swing.event.MenuDragMouseEvent;
@@ -84,7 +86,9 @@ public class MatchGraph extends JApplet {
     Factory<ComplexVertex> vertexFactory = new MatchGraph.VertexFactory();
     Factory<String> edgeFactory = new MatchGraph.EdgeFactory();
     
-    public MatchGraph() {
+    public MatchGraph(File filetoCharge) {
+            try {
+                this.openGraphML(filetoCharge);
 //            graph.addVertex("YEAR");
 //            graph.addVertex("2010");
 //            graph.addVertex("2011");
@@ -112,6 +116,13 @@ public class MatchGraph extends JApplet {
 //            graph.addEdge("Fr->65", "France", "65");
 //            graph.addEdge("2012->90", "2012", "90");
 //            graph.addEdge("2012->1300", "2012", "1300");
+            } catch (ParserConfigurationException ex) {
+                Logger.getLogger(MatchGraph.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SAXException ex) {
+                Logger.getLogger(MatchGraph.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(MatchGraph.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         Dimension preferredSize = new Dimension(500, 500);
         //layout = new StaticLayout(graph,preferredSize);
@@ -194,22 +205,7 @@ public class MatchGraph extends JApplet {
     }
     
     public void matcherGraph() {
-//       graph.addVertex(title);
-//       for(String s : selected ) {
-//           //Gestion des predecesseur
-//           for (String pred : graph.getPredecessors(s)) {
-//               if(!selected.contains(pred))                
-//                    graph.addEdge(pred+"->"+title, pred, title);
-//                graph.removeEdge(graph.findEdge(pred, s));
-//               }
-//           
-//            //Gestion des successeurs
-//           for (String succ : graph.getSuccessors(s)) {
-//               if(!selected.contains(succ))                
-//                    graph.addEdge(title+"->"+succ, title, succ);
-//                graph.removeEdge(graph.findEdge(s, succ));
-//               }
-//           graph.removeVertex(s);
+
         
         Collection picked = new HashSet(vv.getPickedVertexState().getPicked());
 
@@ -236,28 +232,46 @@ public class MatchGraph extends JApplet {
     } 
 
     
-    public void matcherGraph( ArrayList<String> picked ) {
+    public void matcherGraph( ArrayList<ComplexVertex> picked ) {
 
-        GraphCollapser mycollapser = new GraphCollapser(graph);
-        Graph inGraph = layout.getGraph();
-        Graph clusterGraph = mycollapser.getClusterGraph(inGraph, picked);
-        Graph g = mycollapser.collapse(layout.getGraph(), clusterGraph);
+//        GraphCollapser mycollapser = new GraphCollapser(graph);
+//        Graph inGraph = layout.getGraph();
+//        Graph clusterGraph = mycollapser.getClusterGraph(inGraph, picked);
+//        Graph g = mycollapser.collapse(layout.getGraph(), clusterGraph);
+//
+//        double sumx = 0;
+//        double sumy = 0;
+//        // tu vois ce code récupère la position de tous les vertex comme étant des object donc il te suffit de lire les éléments de picked :) 
+//        for (Object v : picked) {
+//            Point2D p = (Point2D) layout.transform(v.toString());
+//            sumx += p.getX();
+//            sumy += p.getY();
+//        }
+//        Point2D cp = new Point2D.Double(sumx / picked.size(), sumy / picked.size());
+//        vv.getRenderContext().getParallelEdgeIndexFunction().reset();
+//        layout.setGraph(g);
+//        layout.setLocation(clusterGraph, cp);
+//        vv.getPickedVertexState().clear();
+//        System.out.println(layout.getGraph());
+//        vv.repaint();
+        
+        graph.addVertex("TOOO");
+        for(ComplexVertex c : picked ) {
+            //Gestion des predecesseur
+            for (ComplexVertex pred : graph.getPredecessors(c)) {
+                if(!picked.contains(pred))                
+                     graph.addEdge(pred+"->"+title, pred, title);
+                 graph.removeEdge(graph.findEdge(pred, c));
+                }
 
-        double sumx = 0;
-        double sumy = 0;
-        // tu vois ce code récupère la position de tous les vertex comme étant des object donc il te suffit de lire les éléments de picked :) 
-        for (Object v : picked) {
-            System.out.println(v.toString());
-            Point2D p = (Point2D) layout.transform(v.toString());
-            sumx += p.getX();
-            sumy += p.getY();
+             //Gestion des successeurs
+            for (String succ : graph.getSuccessors(s)) {
+                if(!picked.contains(succ))                
+                     graph.addEdge(title+"->"+succ, title, succ);
+                 graph.removeEdge(graph.findEdge(c, succ));
+                }
+            graph.removeVertex(c);
         }
-        Point2D cp = new Point2D.Double(sumx / picked.size(), sumy / picked.size());
-        vv.getRenderContext().getParallelEdgeIndexFunction().reset();
-        layout.setGraph(g);
-        layout.setLocation(clusterGraph, cp);
-        vv.getPickedVertexState().clear();
-        vv.repaint();
                
     } 
     
