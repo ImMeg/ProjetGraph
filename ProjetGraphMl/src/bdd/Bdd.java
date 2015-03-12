@@ -29,10 +29,12 @@ public class Bdd {
     
     public static void createTable(String tableName,Map<String,ArrayList<ComplexVertex>> attributes) {
         FileWriter fw = null;
+        FileWriter fwInsert = null;
         try {
             String nomFichier = tableName+".sql";
             File fichier = new File(nomFichier);
-            fw = new FileWriter(fichier.getAbsolutePath(), true);
+            fw = new FileWriter(fichier.getAbsolutePath(),false);
+            
             // le BufferedWriter output auquel on donne comme argument le FileWriter fw cree juste au dessus
             BufferedWriter output = new BufferedWriter(fw);
             String requete = "create table "+tableName+" {\n "
@@ -48,6 +50,12 @@ public class Bdd {
                 else 
                     requete += ",\n ";
             }
+            //on marque dans le fichier ou plutot dans le BufferedWriter qui sert comme un tampon(stream)
+            output.write(requete);
+            //on peut utiliser plusieurs fois methode write
+            output.flush();
+            //ensuite flush envoie dans le fichier, ne pas oublier cette methode pour le BufferedWriter
+            output.close();
             Collection<ArrayList<ComplexVertex>> values =  attributes.values();
             Iterator<ArrayList<ComplexVertex>> it = values.iterator();
             ArrayList<ArrayList<ComplexVertex>> mesValues = new ArrayList<ArrayList<ComplexVertex>>();
@@ -59,26 +67,31 @@ public class Bdd {
                 k++;
                 
             }
+            String nomFichierInsert = tableName+"Insert.sql";
+            File fichierInsert = new File(nomFichierInsert);
+            String requeteInsert ="";
+            fwInsert = new FileWriter(fichierInsert.getAbsolutePath(), false);
+            BufferedWriter outputInsert = new BufferedWriter(fwInsert);
             for(int i = 0 ;i< mesValues.get(0).size() ;i++) {
                 
-                requete += "INSERT INTO "+tableName+" VALUES (";
+                requeteInsert += "INSERT INTO "+tableName+" VALUES (";
                 for(int j =0;j<mesValues.size();j++) {
-                    requete += mesValues.get(j).get(i).getDisplayValue();
+                    requeteInsert += mesValues.get(j).get(i).getDisplayValue();
                     if(j == (mesValues.size()-1))
-                        requete += ")";
+                        requeteInsert += ")";
                      else
-                        requete+= ",";
+                        requeteInsert+= ",";
                 }
-                requete += ";\n";       
+                requeteInsert += ";\n";       
             }
             
             
             //on marque dans le fichier ou plutot dans le BufferedWriter qui sert comme un tampon(stream)
-            output.write(requete);
+            outputInsert.write(requeteInsert);
             //on peut utiliser plusieurs fois methode write
-            output.flush();
+            outputInsert.flush();
             //ensuite flush envoie dans le fichier, ne pas oublier cette methode pour le BufferedWriter
-            output.close();
+            outputInsert.close();
             //et on le ferme
             System.out.println("fichier créé");
         } catch (IOException ex) {
@@ -86,6 +99,7 @@ public class Bdd {
         } finally {
             try {
                 fw.close();
+                fwInsert.close();
             } catch (IOException ex) {
                 Logger.getLogger(Bdd.class.getName()).log(Level.SEVERE, null, ex);
             }

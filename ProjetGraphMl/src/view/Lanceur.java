@@ -37,8 +37,6 @@ public class Lanceur
             MatchGraph mg = new MatchGraph(filetoCharge);
             ViewGraph g = new ViewGraph(mg);
             g.setVisible(true);
-            ViewAdd a = new ViewAdd();
-            a.setVisible(true);
             ListenerAddAttribute.setMatchGraph(mg);
             DataStructure<ComplexVertex> data = new DataStructure<>();
             ListenerAddAttribute.setDataStructure(data);
