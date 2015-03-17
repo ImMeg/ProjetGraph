@@ -8,6 +8,7 @@ package graph;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedGraph;
+import edu.uci.ics.jung.graph.DirectedOrderedSparseMultigraph;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Forest;
 import edu.uci.ics.jung.graph.Graph;
@@ -408,7 +409,12 @@ public class MatchGraph extends JApplet {
        GraphMLReader<DirectedGraph<ComplexVertex, String>, ComplexVertex, String> graphMLReader
                = new GraphMLReader<>(vertexFactory, edgeFactory);
        DirectedGraph<ComplexVertex, String> graphTmp = new DirectedSparseMultigraph<ComplexVertex, String>();
+       /* ICI tu vois le load ne marche pas et j'ai cette erreur 
+       Nesting elements not supported
+       j'ai essayé avec load multiple et de créer une liste de DirectedGraph pour isoler chaque sous graph du graph intégré 
+       mais j'ai toujours la même erreur et je trouve pas d'autres solutions*/
        graphMLReader.load(file.getPath(), graphTmp);
+
        HashMap<Integer, ComplexVertex> graphVerticePredecessors = new HashMap<>();
        Map<String, GraphMLMetadata<ComplexVertex>> vertex_data = graphMLReader.getVertexMetadata(); //Our vertex Metadata is stored in a map.
        int orderInsertionVertex = 0;
