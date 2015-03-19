@@ -57,23 +57,13 @@ public class ListenerBoutonOkPrincipal implements ActionListener {
              JOptionPane.showMessageDialog(null, "Please name the TABLE before creating SQL file", "Information", JOptionPane.INFORMATION_MESSAGE);
              return;
         }
-
+        ds.setTableName(vad.getTableName());
         Bdd.createTable(vad.getTableName(), checkLink().getData());
         
-        g.matcherGraph(ds.allInOneCollection());
-        System.out.println(ds.allInOneCollection());
+        g.matcherGraph(ds.allInOneCollection(),ds.getTableName());
         ds.removeAll();
         
-        vad.clear();
-        vad.revalidate();
-        //view.removeAll();
-        //view.setPanel(vad);
-        view.revalidate();
-        
-        
-        
-        
-        
+        miseAZero();
     }
     
     private ArrayList<ComplexVertex> createLineWith ( ComplexVertex s1 , ComplexVertex s2 )
@@ -140,6 +130,9 @@ public class ListenerBoutonOkPrincipal implements ActionListener {
        
 
         return d;
+    }
+
+    private void miseAZero() {
     }
     
 }

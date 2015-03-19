@@ -215,7 +215,7 @@ public class MatchGraph extends JApplet {
     } 
 
     
-    public void matcherGraph( ArrayList<ComplexVertex> picked ) {
+    public void matcherGraph( ArrayList<ComplexVertex> picked , String nom ) {
 
 //        GraphCollapser mycollapser = new GraphCollapser(graph);
 //        Graph inGraph = layout.getGraph();
@@ -237,7 +237,7 @@ public class MatchGraph extends JApplet {
 //        vv.getPickedVertexState().clear();
 //        System.out.println(layout.getGraph());
 //        vv.repaint();
-        ComplexVertex c1 = new ComplexVertex("1","MATCH");
+        ComplexVertex c1 = new ComplexVertex("1",nom);
         graph.addVertex(c1);
         for(ComplexVertex c : picked ) {
             //Gestion des predecesseur
