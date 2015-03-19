@@ -40,6 +40,22 @@ public class TreePerso extends javax.swing.JPanel {
     {
         racine.add(new javax.swing.tree.DefaultMutableTreeNode(s));
     }
+    
+    public void addLine(String first,String second)
+    {
+        for ( int i = 0 ; i < racine.getChildCount() ; i++ )
+        {
+            DefaultMutableTreeNode d = (DefaultMutableTreeNode) racine.getChildAt(i);
+            if ( ((String)d.getUserObject()).equals(first))
+            {
+                d.add(new DefaultMutableTreeNode(second));
+                return;
+            }
+        }
+        DefaultMutableTreeNode nouveau = new DefaultMutableTreeNode(first);
+        nouveau.add( new DefaultMutableTreeNode(second));
+        racine.add(nouveau);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

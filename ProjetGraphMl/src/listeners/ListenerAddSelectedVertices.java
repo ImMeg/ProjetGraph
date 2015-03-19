@@ -24,14 +24,14 @@ import view.DataStructure;
  *
  * @author Thomas
  */
-public class ListenerAddAttribute implements ActionListener
+public class ListenerAddSelectedVertices implements ActionListener
 {
     private ViewAddAttribute a;
     private static MatchGraph g;
     private static ViewAddDimension s;
     private static DataStructure<ComplexVertex> data = new DataStructure<>();
     
-    public ListenerAddAttribute(ViewAddAttribute b)
+    public ListenerAddSelectedVertices(ViewAddAttribute b)
     {
         a = b;
     }
@@ -56,7 +56,7 @@ public class ListenerAddAttribute implements ActionListener
         }
         a.addElementToJPanel(g.getSelectedVertex());
         //g.matcherGraph(data.getElementOfAttribute(a.getNameAttribute()));
-        checkLink();
+        //checkLink();
     }
     
     public static void setMatchGraph (MatchGraph ga)
@@ -70,72 +70,15 @@ public class ListenerAddAttribute implements ActionListener
     }
 
     public static void setDataStructure(DataStructure<ComplexVertex> data) {
-        ListenerAddAttribute.data = data;
+        ListenerAddSelectedVertices.data = data;
     }
 
+    /**
+     * Pour l'instant valide uniquement avec deux attributs
+     */
     
-    private void checkLink() {
-        
-        DataStructure<ComplexVertex> d = new DataStructure<>();
-        for ( int i = 0 ; i < data.getAttributeCount() ; i++ )
-             d.addAttribute(data.getAttributeName(i));
-        
-         
-        int cpt = 0;
-        boolean adder = false;
-        for ( int i = 0 ; i < data.getNumberOfElementInAttribute(0) ; i++ )
-        {
-            adder = false;
-            for ( ComplexVertex s : g.getSuccessors(data.getLine(i).get(0)))
-            {
-                if ( data.nextAttributeContainsElement(0, s))
-                {
-                    ArrayList<ComplexVertex> list = new ArrayList<>();
-                    list.add(data.getLine(i).get(0));
-                    list.add(s);
-                    d.addLine(cpt,list );
-                    adder = true;
-                    cpt++;
-                }
-            }
-            
-            if ( !adder )
-            {
-                if ( data.getAttributeIndex(a.getNameAttribute()) == 0 )
-                {
-                    ArrayList<ComplexVertex> list = new ArrayList<>();
-                    list.add(data.getLine(i).get(0));
-                    list.add(null);
-                    d.addLine(cpt,list );
-                }
-                else
-                {
-                    ArrayList<ComplexVertex> list = new ArrayList<>();
-                    
-                    list.add(null);
-                    list.add(data.getLine(i).get(1));
-                    d.addLine(cpt,list );
-                }
-                
-            }
-        }
-        
-        if ( data.getAttributeCount() > 1 )
-        {
-            
-            for ( ComplexVertex i : data.getElementOfAttribute(data.getAttributeName(1)))
-            {
-                if ( !(d.getElementOfAttribute(data.getAttributeName(1)).contains(i)))
-                {
-                    ArrayList<ComplexVertex> list = new ArrayList<>();
-
-                    list.add(null);
-                    list.add(i);
-                    d.addLine(cpt,list );
-                }
-            }
-        } 
-        System.out.println("Table ordonné :" +d.getData());
-       ListenerBoutonOkPrincipal.setDataStructure(d);
-    }
+    
+    /** Uniquement valable pour une dataStructure ayant maxi deux attributs !!
+     * @return retourne une DataStructure qui prend en compte les liens de parentés entre les élements */
+    
 }

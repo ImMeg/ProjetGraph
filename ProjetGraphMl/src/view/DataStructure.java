@@ -20,50 +20,55 @@ import java.util.TreeMap;
 public class DataStructure <Type>
 {
         
-    Map<String,ArrayList<Type>> attributs;
+    private Map<String,ArrayList<Type>> data;
     private String tableName;
 
     public DataStructure() {
-        attributs = new LinkedHashMap<>();
+        data = new LinkedHashMap<>();
     }
     
     public ArrayList<Type> getElementOfAttribute( String s )
     {
-        return attributs.get(s);
+        return data.get(s);
+    }
+    
+    public ArrayList<Type> getElementOfAttribute( int attributeNumber )
+    {
+        return data.get(getAttributeName(attributeNumber));
     }
     
     public boolean attributeContains (String attribut, Type s)
     {
-        if ( attributs.get(attribut) != null )
-            return attributs.get(attribut).contains(s);
+        if ( data.get(attribut) != null )
+            return data.get(attribut).contains(s);
         
         return false;
     }
     
     public void addAttribute (String s)
     {
-        attributs.put(s, new ArrayList<Type>());
+        data.put(s, new ArrayList<Type>());
     }
     
     public boolean attributeExist ( String s )
     {
-        return attributs.containsKey(s);
+        return data.containsKey(s);
     }
     
     public void addElementToAttribute (String attribute, Type s)
     {
-        attributs.get(attribute).add(s);
+        data.get(attribute).add(s);
     }
     
     public void addElementToAttribute (int attributeNumber, Type s)
     {
-        attributs.get(getAttributeName(attributeNumber)).add(s);
+        data.get(getAttributeName(attributeNumber)).add(s);
     }
     
     public ArrayList<Type> getLine ( int number )
     {
         ArrayList<Type> line = new ArrayList<>();
-        for ( Object o : attributs.values().toArray())
+        for ( Object o : data.values().toArray())
         {
             ArrayList<Type> a = (ArrayList<Type>)o;
             //System.out.println("A est :" +a);
@@ -80,7 +85,7 @@ public class DataStructure <Type>
     public void addLine ( int index , ArrayList<Type> elements )
     {
         int i = 0;
-        for ( Object o : attributs.values().toArray())
+        for ( Object o : data.values().toArray())
         {
             ArrayList<Type> a = (ArrayList<Type>)o;
             a.add(index,elements.get(i));
@@ -90,13 +95,13 @@ public class DataStructure <Type>
     
     public void setData (Map<String,ArrayList<Type>> at)
     {
-        attributs = at;
+        data = at;
         /*System.out.println(at);
         System.out.println(attributs);*/
     }
 
     public Map<String,ArrayList<Type>> getData() {
-        return (HashMap < String, ArrayList<Type>>) attributs;
+        return (HashMap < String, ArrayList<Type>>) data;
     }
 
     public String getTableName() {
@@ -110,13 +115,13 @@ public class DataStructure <Type>
     public int getAttributeCount()
     {
         //System.out.println("Il y a actuellement" + attributs.size() +"Attributes");
-        return attributs.size();
+        return data.size();
     }
     
     public String getNextAttribute (String actual )
     {
         boolean found = false;
-        for ( String s : attributs.keySet())
+        for ( String s : data.keySet())
         {
             if ( found )
                 return s;
@@ -131,7 +136,7 @@ public class DataStructure <Type>
     public String getAttributeName ( int attributeNumber )
     {
         int i = 0;
-        for ( String s : attributs.keySet())
+        for ( String s : data.keySet())
         {     
             if (i == attributeNumber)
                 return s;
@@ -145,7 +150,7 @@ public class DataStructure <Type>
     public int getAttributeIndex ( String name )
     {
         int i = 0;
-        for ( String s : attributs.keySet())
+        for ( String s : data.keySet())
         {     
             if (s.equals(name))
                 return i;
@@ -166,12 +171,12 @@ public class DataStructure <Type>
     
     public int getNumberOfElementInAttribute ( String attribute )
     {
-        return attributs.get(attribute).size();
+        return data.get(attribute).size();
     }
     
     public int getNumberOfElementInAttribute ( int number )
     {
-        return attributs.get(getAttributeName(number)).size();
+        return data.get(getAttributeName(number)).size();
     }
 
     public int getMaxNumberOfElementInAttribute() {
@@ -186,5 +191,23 @@ public class DataStructure <Type>
         
         return max;
         
+    }
+
+    public void removeAll() {
+        data.clear();
+    }
+    
+    public ArrayList<Type> allInOneCollection()
+    {
+        ArrayList<Type> list = new ArrayList<Type>();
+        for ( int i = 0 ; i < getAttributeCount() ; i++ )
+        {
+            for ( Type t : getElementOfAttribute(i))
+            {
+                if ( !list.contains(t))
+                    list.add(t);
+            }
+        }
+        return list;
     }
 }

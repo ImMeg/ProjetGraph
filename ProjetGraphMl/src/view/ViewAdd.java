@@ -5,9 +5,10 @@
  */
 package view;
 
-import listeners.ListenerAddAttribute;
+import listeners.ListenerAddSelectedVertices;
 import java.awt.Component;
 import javax.swing.JPanel;
+import listeners.ListenerBoutonOkPrincipal;
 
 /**
  *
@@ -15,15 +16,26 @@ import javax.swing.JPanel;
  */
 public class ViewAdd extends javax.swing.JFrame {
 
+    public static enum view { DIMENSION , FACT }
+    
     /**
      * Creates new form ViewAdd
      */
-    public ViewAdd() {
-        initComponents();
-        ViewAddDimension asa = new ViewAddDimension();
-        ListenerAddAttribute.setSeveralAttribute(asa);
-        setPanel(asa);
 
+    
+    public ViewAdd(view v) {
+        initComponents();
+        ListenerBoutonOkPrincipal.setView(this);
+        switch(v)
+        {
+            case DIMENSION :
+                ViewAddDimension asa = new ViewAddDimension();
+                setPanel(asa);
+                break;
+            case FACT :
+                break;
+        }
+        
     }
 
     public void setPanel( JPanel j)
@@ -45,7 +57,7 @@ public class ViewAdd extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(500, 500));
@@ -59,8 +71,8 @@ public class ViewAdd extends javax.swing.JFrame {
 
         jMenu2.setText("Edit");
 
-        jMenu3.setText("Edit the order of attributes");
-        jMenu2.add(jMenu3);
+        jMenuItem1.setText("Edit order of attributes");
+        jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
 
@@ -116,7 +128,7 @@ public class ViewAdd extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewAdd().setVisible(true);
+                new ViewAdd(view.DIMENSION).setVisible(true);
             }
         });
     }
@@ -124,8 +136,8 @@ public class ViewAdd extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
