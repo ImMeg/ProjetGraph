@@ -87,6 +87,7 @@ public class MatchGraph extends JApplet {
     Factory<ComplexVertex> vertexFactory = new MatchGraph.VertexFactory();
     Factory<String> edgeFactory = new MatchGraph.EdgeFactory();
     
+    public MatchGraph() {}
     public MatchGraph(File filetoCharge) {
             try {
                 this.openGraphML(filetoCharge);
@@ -461,4 +462,78 @@ public class MatchGraph extends JApplet {
                 }
             }
     }
+     
+     ArrayList<ComplexVertex> getDatas(String value1,String value2,ArrayList<File> files) {
+         ArrayList<ComplexVertex> datas = new ArrayList<>();
+            try {
+                GraphMLReader<DirectedGraph<ComplexVertex, String>, ComplexVertex, String> graphReader;
+                DirectedGraph<ComplexVertex, String> graphTmp;
+                try {
+                    for(File f : files) {
+                        graphReader = new GraphMLReader<>(vertexFactory, edgeFactory);
+                        graphTmp = new DirectedSparseMultigraph<>();
+                        graphReader.load(f.getPath(),graphTmp);
+                        Map<String, GraphMLMetadata<ComplexVertex>> vertex_data = graphReader.getVertexMetadata(); //Our vertex Metadata is stored in a map.
+                        Object[] tabVertex = graphTmp.getVertices().toArray();
+                        Iterator itIdVertices = graphReader.getVertexIDs().values().iterator();
+                        ComplexVertex cv = null;
+                        ComplexVertex cvTocharge1 = null;
+                        ComplexVertex cvTocharge2 = null;
+                        String idVertex = null;
+
+                        for (Object tabVertex1 : tabVertex) {
+                            cv = (ComplexVertex) tabVertex1;
+                            idVertex = (String) itIdVertices.next();
+                            cv.set_ID(idVertex);
+                            cv.setDisplayValue(vertex_data.get("DisplayedValue").transformer.transform(cv));
+                            cv.setFileName(vertex_data.get("idSrcOrigin").transformer.transform(cv));
+                            if(vertex_data.get("DisplayedValue").transformer.transform(cv) != null) {
+                                if (vertex_data.get("DisplayedValue").transformer.transform(cv).equals(value1)) {
+                                    cvTocharge1 = cv;
+                                }
+                                if (vertex_data.get("DisplayedValue").transformer.transform(cv).equals(value2)) {
+                                    cvTocharge2 = cv;
+                                }
+                            }
+                        }
+                         //si on a trouve les 2 valeurs dans le graph
+                         if(cvTocharge1 != null && cvTocharge2!= null) {
+                         ArrayList<ComplexVertex> idsData = new ArrayList<>();
+                             for (String e : graphTmp.getEdges())
+                             {
+                                     if(cvTocharge1.equals(graphTmp.getSource(e))) { 
+                                         idsData.add(graphTmp.getDest(e));
+                                     }
+                             }
+                             for(ComplexVertex c : idsData) {
+                                 for(String e : graphTmp.getEdges()) {
+                                     if(c.equals(graphTmp.getDest(e))) {
+                                         if( cvTocharge2.equals(graphTmp.getSource(e)) )
+                                             datas.add(c);
+                                     }
+                                 }
+                             }
+                         }
+                    }                 
+                } catch (IOException ex) {
+                    Logger.getLogger(MatchGraph.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (ParserConfigurationException ex) {
+                Logger.getLogger(MatchGraph.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SAXException ex) {
+                Logger.getLogger(MatchGraph.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println(datas);
+            return datas;
+            
+     }
+     
+     public static void main (String args[]) {
+                ArrayList<File> files = new ArrayList<>();
+                files.add(new File("/Users/loicleger/Downloads/ExempleProjet40/graphesPhase1et2/graphml_step1/RegionalOATSAreaComplete.graphml"));
+                files.add(new File("/Users/loicleger/Downloads/ExempleProjet40/graphesPhase1et2/graphml_step1/RegionalWheatAreaComplete.graphml"));
+                files.add(new File("/Users/loicleger/Downloads/ExempleProjet40/graphesPhase1et2/graphml_step1/cerealYiledsSUmmaryComplet.graphml"));
+                
+                new MatchGraph().getDatas("2011","England",files);
+            }
 }

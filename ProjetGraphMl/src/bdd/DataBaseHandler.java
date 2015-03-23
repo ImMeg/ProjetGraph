@@ -19,8 +19,8 @@ public class DataBaseHandler {
 	
 	public static void initConnection() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			laConnection = DriverManager.getConnection("jdbc:mysql://localhost/mydb","loicleger","jauzion");
+			Class.forName("oracle.jdbc.OracleDriver");
+			laConnection = DriverManager.getConnection("jdbc:mysql://localhost/mydb","21105790","jauzion82");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
