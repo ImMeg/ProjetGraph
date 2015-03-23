@@ -50,7 +50,7 @@ public class MyModelGraphMouse<V,E> extends AbstractPopupGraphMousePlugin implem
 
             popup.add(new AbstractAction("Add Dimension") {
                 public void actionPerformed(ActionEvent e) {
-                    new ViewAdd().setVisible(true);
+                    new ViewAdd(ViewAdd.view.DIMENSION).setVisible(true);
                 }
             });
             popup.show(vv, e.getX(), e.getY());

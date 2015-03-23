@@ -5,7 +5,7 @@
  */
 package view;
 
-import listeners.ListenerAddAttribute;
+import listeners.ListenerAddSelectedVertices;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import graph.ComplexVertex;
 import graph.MatchGraph;
@@ -44,7 +44,7 @@ public class ViewAddAttribute extends javax.swing.JPanel {
         initComponents();
         jTextField1.setText(nom);
         listOfCheckBox = new ArrayList<>();
-        jButton1.addActionListener(new ListenerAddAttribute(this));
+        jButton1.addActionListener(new ListenerAddSelectedVertices(this));
     }
     
     public ViewAddAttribute ()
@@ -52,7 +52,7 @@ public class ViewAddAttribute extends javax.swing.JPanel {
         initComponents();
         
         listOfCheckBox = new ArrayList<>();
-        jButton1.addActionListener(new ListenerAddAttribute(this));
+        jButton1.addActionListener(new ListenerAddSelectedVertices(this));
     }
 
     /**

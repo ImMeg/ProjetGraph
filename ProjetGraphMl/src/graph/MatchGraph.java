@@ -68,7 +68,6 @@ import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.functors.MapTransformer;
 import org.apache.commons.collections15.map.LazyMap;
-import listeners.MouseListenerPerso;
 import org.xml.sax.SAXException;
 
 /**
@@ -234,7 +233,7 @@ public class MatchGraph extends JApplet {
     } 
 
     
-    public void matcherGraph( ArrayList<ComplexVertex> picked ) {
+    public void matcherGraph( ArrayList<ComplexVertex> picked ,String name) {
 
 //        GraphCollapser mycollapser = new GraphCollapser(graph);
 //        Graph inGraph = layout.getGraph();
@@ -256,13 +255,13 @@ public class MatchGraph extends JApplet {
 //        vv.getPickedVertexState().clear();
 //        System.out.println(layout.getGraph());
 //        vv.repaint();
-        ComplexVertex c1 = new ComplexVertex("1","MATCH");
+        ComplexVertex c1 = new ComplexVertex("1",name);
         graph.addVertex(c1);
         for(ComplexVertex c : picked ) {
             //Gestion des predecesseur
             for (ComplexVertex pred : graph.getPredecessors(c)) {
                 if(!picked.contains(pred))                
-                    graph.addEdge(pred.toString()+"->"+"MATCH", pred,c1);
+                    graph.addEdge(pred.toString()+"->"+name, pred,c1);
                     graph.removeEdge(graph.findEdge(pred, c));
                 }
 

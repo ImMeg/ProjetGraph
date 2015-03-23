@@ -6,7 +6,7 @@
 package view;
 
 import graph.ComplexVertex;
-import listeners.ListenerAddAttribute;
+import listeners.ListenerAddSelectedVertices;
 import graph.MatchGraph;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.xml.parsers.ParserConfigurationException;
+import listeners.ListenerAddAttribute;
 import listeners.ListenerBoutonOkPrincipal;
 import org.xml.sax.SAXException;
 
@@ -25,26 +26,31 @@ import org.xml.sax.SAXException;
  */
 public class Lanceur
 {
+    static MatchGraph mg;
+    public DataStructure<ComplexVertex> data;
+    static ViewGraph g = new ViewGraph();
+    
+    public static void setMatchGraph( MatchGraph mg)
+    {
+        Lanceur.mg = mg;
+        ListenerAddSelectedVertices.setMatchGraph(mg);
+        ListenerBoutonOkPrincipal.setMatchGraph(mg);
+        g.setMg(Lanceur.mg);
+    }
+    
     public static void main(String args[])
     {
-        JFrame frameLance = new JFrame();
-        
-        JFileChooser fc = new JFileChooser();
-        int returnVal=fc.showOpenDialog(frameLance);
-        File filetoCharge;
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            filetoCharge = fc.getSelectedFile().getAbsoluteFile();
-            MatchGraph mg = new MatchGraph(filetoCharge);
-            ViewGraph g = new ViewGraph(mg);
+
             g.setVisible(true);
-            ListenerAddAttribute.setMatchGraph(mg);
-            DataStructure<ComplexVertex> data = new DataStructure<>();
-            ListenerAddAttribute.setDataStructure(data);
-            ListenerBoutonOkPrincipal.setDataStructure(data);
-        }
-       else {
             
-        }
+            //ListenerAddAttribute.setMatchGraph(mg);
+            DataStructure<ComplexVertex> data = new DataStructure<>();
+
+            ListenerAddSelectedVertices.setDataStructure(data);
+            ListenerBoutonOkPrincipal.setDataStructure(data);
+            ListenerAddAttribute.setDataStructure(data);
+            
+
         
 //        
         
