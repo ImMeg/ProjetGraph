@@ -50,7 +50,7 @@ public class ListenerAddSelectedVertices implements ActionListener
         
         Iterator<ComplexVertex> objects = g.getSelectedVertex().iterator();
 
-         for (ComplexVertex it = null; objects.hasNext() ;  ){
+        for (ComplexVertex it = null; objects.hasNext() ;  ){
              it = objects.next();
              data.addElementToAttribute(a.getNameAttribute(), it);
         }

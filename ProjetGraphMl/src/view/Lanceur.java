@@ -17,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.xml.parsers.ParserConfigurationException;
 import listeners.ListenerAddAttribute;
+import listeners.ListenerAddSelectedDimension;
 import listeners.ListenerBoutonOkPrincipal;
 import org.xml.sax.SAXException;
 
@@ -27,6 +28,12 @@ import org.xml.sax.SAXException;
 public class Lanceur
 {
     static MatchGraph mg;
+    static ViewAdd va;
+
+    static void setViewAdd(ViewAdd aThis) {
+        va = aThis;
+    }
+    
     public DataStructure<ComplexVertex> data;
     static ViewGraph g = new ViewGraph();
     
@@ -35,7 +42,21 @@ public class Lanceur
         Lanceur.mg = mg;
         ListenerAddSelectedVertices.setMatchGraph(mg);
         ListenerBoutonOkPrincipal.setMatchGraph(mg);
+        ListenerAddSelectedDimension.setMatchGraph(mg);
         g.setMg(Lanceur.mg);
+    }
+    
+    public static void setDataStructure (DataStructure data)
+    {
+        ListenerAddSelectedVertices.setDataStructure(data);
+        ListenerBoutonOkPrincipal.setDataStructure(data);
+        ListenerAddAttribute.setDataStructure(data);
+        ListenerAddSelectedDimension.setDataStructure(data);
+    }
+    
+    public static void closeViewAdd()
+    {
+        va.dispose();
     }
     
     public static void main(String args[])
@@ -46,9 +67,8 @@ public class Lanceur
             //ListenerAddAttribute.setMatchGraph(mg);
             DataStructure<ComplexVertex> data = new DataStructure<>();
 
-            ListenerAddSelectedVertices.setDataStructure(data);
-            ListenerBoutonOkPrincipal.setDataStructure(data);
-            ListenerAddAttribute.setDataStructure(data);
+            Lanceur.setDataStructure(data);
+            
             
 
         

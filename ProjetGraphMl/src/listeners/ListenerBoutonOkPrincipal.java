@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import view.DataStructure;
+import view.Lanceur;
 import view.ViewAdd;
 import view.ViewAddAttribute;
 import view.ViewAddDimension;
@@ -133,6 +134,8 @@ public class ListenerBoutonOkPrincipal implements ActionListener {
     }
 
     private void miseAZero() {
+        Lanceur.closeViewAdd();
+        new ViewAdd(ViewAdd.view.DIMENSION).setVisible(true);
     }
     
 }

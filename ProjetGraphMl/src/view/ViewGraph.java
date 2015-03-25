@@ -97,6 +97,7 @@ public class ViewGraph extends javax.swing.JFrame {
             Lanceur.setMatchGraph(mg);
         }
         
+        this.revalidate();
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 

@@ -17,14 +17,22 @@ import listeners.ListenerBoutonOkPrincipal;
 public class ViewAdd extends javax.swing.JFrame {
 
     public static enum view { DIMENSION , FACT }
-    
+    public static boolean exist = false;
     /**
      * Creates new form ViewAdd
      */
 
     
     public ViewAdd(view v) {
+        if ( exist )
+        {
+            this.fermer();
+            return;
+        }
+        
+        exist = true;
         initComponents();
+        Lanceur.setViewAdd(this);
         ListenerBoutonOkPrincipal.setView(this);
         switch(v)
         {
@@ -33,6 +41,8 @@ public class ViewAdd extends javax.swing.JFrame {
                 setPanel(asa);
                 break;
             case FACT :
+                ViewAddFact vad = new ViewAddFact();
+                setPanel(vad);
                 break;
         }
         
@@ -43,6 +53,17 @@ public class ViewAdd extends javax.swing.JFrame {
         jPanel1.add(j);
         jPanel1.revalidate();
         setTitle(j.getToolTipText());
+    }
+    
+    public void fermer()
+    {
+        exist = false;
+        this.dispose();
+    }
+    
+    public boolean alreadyExist ()
+    {
+        return exist;
     }
     /**
      * This method is called from within the constructor to initialize the form.

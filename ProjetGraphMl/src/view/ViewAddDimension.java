@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTree;
 import listeners.ListenerAddAttribute;
 import listeners.ListenerAddSelectedVertices;
@@ -71,7 +72,7 @@ public class ViewAddDimension extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jButtonPlus = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
+        jPanelContenairViewAddAttribute = new javax.swing.JPanel();
         jTextFieldTableName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
@@ -101,8 +102,8 @@ public class ViewAddDimension extends javax.swing.JPanel {
             }
         });
 
-        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
-        jScrollPane1.setViewportView(jPanel1);
+        jPanelContenairViewAddAttribute.setLayout(new java.awt.GridLayout(1, 0));
+        jScrollPane1.setViewportView(jPanelContenairViewAddAttribute);
 
         jTextFieldTableName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextFieldTableName.setText("table_name");
@@ -169,13 +170,13 @@ public class ViewAddDimension extends javax.swing.JPanel {
      
     }//GEN-LAST:event_jButtonOKActionPerformed
 
-    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCancelActionPerformed
-
     private void jTextFieldTableNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTableNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldTableNameActionPerformed
+
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        Lanceur.closeViewAdd();
+    }//GEN-LAST:event_jButtonCancelActionPerformed
 
     static public void majTree()
     {
@@ -190,8 +191,8 @@ public class ViewAddDimension extends javax.swing.JPanel {
     {
         ViewAddAttribute nouveau = new ViewAddAttribute(s);
         listOfAttribute.add(nouveau);
-        jPanel1.add(nouveau);
-        jPanel1.revalidate();
+        jPanelContenairViewAddAttribute.add(nouveau);
+        jPanelContenairViewAddAttribute.revalidate();
     }
     
     public String getTableName()
@@ -206,8 +207,8 @@ public class ViewAddDimension extends javax.swing.JPanel {
     
     public void clear()
     {
-        this.jPanel1.removeAll();
-        this.jPanel1.revalidate();
+        this.jPanelContenairViewAddAttribute.removeAll();
+        this.jPanelContenairViewAddAttribute.revalidate();
         listOfAttribute.clear();
     }
     
@@ -220,10 +221,25 @@ public class ViewAddDimension extends javax.swing.JPanel {
     private javax.swing.JButton jButtonPlus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelContenairViewAddAttribute;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldTableName;
     // End of variables declaration//GEN-END:variables
+
+    public JPanel getJPanel() {
+        return this.jPanelContenairViewAddAttribute;
+    }
+
+    public void clearPanel() {
+        this.jPanelContenairViewAddAttribute = new JPanel();
+        this.jPanelContenairViewAddAttribute.revalidate();
+        this.revalidate();
+
+    }
+
+    public void setTableName(String nom) {
+        this.jTextFieldTableName.setText(nom);
+    }
 
   
 }
